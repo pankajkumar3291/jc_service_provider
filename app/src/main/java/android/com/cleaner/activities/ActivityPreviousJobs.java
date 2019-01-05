@@ -1,0 +1,129 @@
+package android.com.cleaner.activities;
+
+import android.com.cleaner.R;
+import android.com.cleaner.adapters.PreviousJobsAdapter;
+import android.com.cleaner.interfaces.ItemClickListenerTwo;
+import android.com.cleaner.models.PreviousJobs;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import am.appwise.components.ni.NoInternetDialog;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+public class ActivityPreviousJobs extends AppCompatActivity implements ItemClickListenerTwo {
+
+
+    private RecyclerView recyclerViewPreviousJobs;
+    private Context context;
+
+
+    List<PreviousJobs> jobsList;
+
+    RelativeLayout reMainRelative;
+    private ImageView backarr;
+
+    private NoInternetDialog noInternetDialog;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_previous_jobs);
+
+
+        noInternetDialog = new NoInternetDialog.Builder(this).build();
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(ActivityPreviousJobs.this, R.color.statusBarColor));
+        context = this;
+
+
+        findingIdsHere();
+
+        callingAdapterHere();
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        noInternetDialog.onDestroy();
+    }
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
+    private void callingAdapterHere() {
+
+
+        jobsList = new ArrayList<>();
+
+        jobsList.add(new PreviousJobs("Hell cleaning center"));
+        jobsList.add(new PreviousJobs("Shahzeb "));
+        jobsList.add(new PreviousJobs("SmartIT "));
+        jobsList.add(new PreviousJobs("Ropar Punjab"));
+        jobsList.add(new PreviousJobs("Charanveer singh "));
+        jobsList.add(new PreviousJobs("Surinder Singh"));
+        jobsList.add(new PreviousJobs("Cleaner call"));
+        jobsList.add(new PreviousJobs("Enjoy here"));
+
+
+        PreviousJobsAdapter previousJobsAdapter = new PreviousJobsAdapter(context, jobsList);
+        recyclerViewPreviousJobs.setHasFixedSize(true);
+        recyclerViewPreviousJobs.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewPreviousJobs.setAdapter(previousJobsAdapter);
+        previousJobsAdapter.setClickListener(this);
+
+
+    }
+
+    private void findingIdsHere() {
+
+        recyclerViewPreviousJobs = findViewById(R.id.recyclerViewPreviousJobs);
+        reMainRelative = findViewById(R.id.reMainRelative);
+        backarr = findViewById(R.id.backarr);
+
+        backarr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onClick(View view, int position) {
+
+//        TastyToast.makeText(getApplicationContext(), "Clicking testing ", TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
+
+        if (position == 0) {
+
+        } else if (position == 1) {
+
+        } else if (position == 2) {
+
+        }
+
+
+    }
+
+
+}

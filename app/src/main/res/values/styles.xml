@@ -1,0 +1,132 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <!--Customize your theme here. -->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    </style>
+
+
+    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <!--// styles.xml-->
+    <style name="customRatingBar" parent="android:style/Widget.Material.RatingBar.Small" />
+
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">#000</item>
+        <item name="android:textSize">20sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">#000</item>
+        <item name="colorControlNormal">#000</item>
+        <item name="colorControlActivated">#000</item>
+    </style>
+
+
+    <!--<style name="TextLabel" parent="TextAppearance.AppCompat">-->
+    <!--&lt;!&ndash; Hint color and label color in FALSE state &ndash;&gt;-->
+    <!--<item name="android:textColorHint">@color/white</item>-->
+    <!--<item name="android:textSize">@dimen/_15ssp</item>-->
+    <!--&lt;!&ndash; Label color in TRUE state and bar color FALSE and TRUE State &ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="colorAccent">@color/white</item>&ndash;&gt;-->
+    <!--<item name="colorControlNormal">@color/colorappmain</item>-->
+    <!--<item name="colorControlActivated">@color/white</item>-->
+    <!--</style>-->
+
+
+    <!--DialogActivityTheme-->
+
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Customize your theme here. -->
+        <!--<item name="windowActionBar">true</item>-->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <style name="WhiteCheck">
+        <item name="colorAccent">#FF182391</item>
+    </style>
+
+
+    <style name="StyledTilEditTextTheme">
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:singleLine">true</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <!--<item name="android:textSize">@dimen/styledtil_edit_text_size</item>-->
+    </style>
+
+
+    <style name="StyledTilEditTextThemeNew">
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:singleLine">true</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <!--<item name="android:textSize">@dimen/styledtil_edit_text_size</item>-->
+    </style>
+
+
+    <style name="StyledTilEditTextThemeNewChangePass">
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:singleLine">true</item>
+        <item name="colorControlNormal">@color/blue</item>
+        <item name="colorControlActivated">@color/blue</item>
+        <item name="android:textColorPrimary">@color/blue</item>
+        <item name="android:textColorHint">@color/blue</item>
+        <!--<item name="android:textSize">@dimen/styledtil_edit_text_size</item>-->
+    </style>
+
+
+    <!--<style name="NavigationDrawerStyle">-->
+
+    <!--&lt;!&ndash;<item name="android:scrollbarThumbVertical">@color/transparent</item>&ndash;&gt;-->
+    <!--<item name="android:listDivider">@color/colorAccent</item>-->
+    <!--&lt;!&ndash;<item name="android:textSize">@dimen/_12sdp</item>&lt;!&ndash; text size in menu&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="android:layout_marginBottom">05dp</item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<item name="android:listPreferredItemHeightSmall">40dp</item>&lt;!&ndash; item size in menu&ndash;&gt;&ndash;&gt;-->
+
+    <!--</style>-->
+
+
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/relativeBottomColor</item>
+        <item name="colorPrimaryDark">@color/spanish_btnColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/spanish_btnColor</item>
+        <item name="android:background">@color/relativeBottomColor</item>
+    </style>
+
+
+    <style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar</item>
+        <item name="android:minHeight">18dp</item>
+        <item name="android:maxHeight">18dp</item>
+    </style>
+
+
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">16sp</item><!-- text size in menu-->
+        <item name="android:listPreferredItemHeightSmall">40dp</item><!-- item size in menu-->
+        <item name="listPreferredItemHeightSmall">40dp</item><!-- item size in menu-->
+
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+</resources>

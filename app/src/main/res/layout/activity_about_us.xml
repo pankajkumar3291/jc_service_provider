@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:id="@+id/tvCompanyInfo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@drawable/about_us_common_bg"
+            android:drawableRight="@drawable/positive_sign"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_5sdp"
+            android:text="Company info"
+            android:textColor="#fff"
+            android:textSize="@dimen/_13sdp" />
+
+
+        <TextView
+            android:id="@+id/tvOffredServices"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/about_us_common_bg"
+            android:drawableRight="@drawable/positive_sign"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_5sdp"
+            android:text="Offred services"
+            android:textColor="#fff"
+            android:textSize="@dimen/_13sdp" />
+
+
+        <TextView
+            android:id="@+id/tvFAQ"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/about_us_common_bg"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_5sdp"
+            android:text="FAQ"
+            android:textColor="#fff"
+            android:textSize="@dimen/_13sdp" />
+
+
+        <TextView
+            android:id="@+id/tvTermsAndConditions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/about_us_common_bg"
+            android:gravity="center_vertical"
+            android:padding="@dimen/_5sdp"
+            android:text="Terms and Conditions"
+            android:textColor="#fff"
+            android:textSize="@dimen/_13sdp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvBack"
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/about_us_back_bg"
+        android:gravity="center"
+        android:text="Back"
+        android:textColor="#fff"
+        android:textSize="@dimen/_14sdp" />
+
+
+</RelativeLayout>

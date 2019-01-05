@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ServiceProvider</string>
+    <string name="home">casa</string>
+    <string name="favorites">Favoritos</string>
+    <string name="settings">Configuraciones</string>
+    <string name="schedule">Programar</string>
+    <string name="sign_in">" INICIAR SESIÓN"</string>
+    <string name="forget_password">Olvidate de la contraseña ...?</string>
+    <string name="sign_in_with">" Inicia sesión con"</string>
+    <string name="dont_have_an_account">No tienes una cuenta ..?</string>
+    <string name="create_one">Crear uno</string>
+    <string name="password">contraseña</string>
+    <string name="user_name">Nombre de usuario</string>
+    <string name="sign_up">REGÍSTRESE</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="email">e-mail</string>
+    <string name="password_sign_up">contraseña</string>
+    <string name="already_have_account">¿Ya tienes una cuenta?</string>
+    <string name="signin">Iniciar sesión</string>
+    <string name="please_fill_the_fields">" Por favor llene los campos de arriba"</string>
+    <string name="make_sure_email_must_be_in_format">Asegúrate de que emial debe estar en formato</string>
+    <string name="password_must_be_like">La contraseña debe ser como 1aA @ 123456</string>
+    <string name="atleast6_charatcer">Al menos 6 caracteres</string>
+    <string name="book_a_cleaner">" Reserve un limpiador"</string>
+    <!--<string name="rebook">Reebok</string>-->
+    <string name="create_an_automatic_schedule">Crear un horario de limpieza automático</string>
+    <string name="user_name_header">Shahzeb</string>
+    <string name="emal_id_header">Shahzeb@gmail.com</string>
+    <string name="daily">Diario</string>
+    <string name="weekly">Semanal</string>
+    <string name="monthly">Mensual</string>
+    <string name="six_monthly">6-Mensual</string>
+    <string name="or">O</string>
+    <string name="monday">lunes</string>
+    <string name="tuesday">" martes"</string>
+    <string name="wednesday">miércoles</string>
+    <string name="thursday">" jueves"</string>
+    <string name="friday">viernes</string>
+    <string name="saturday">" sábado"</string>
+    <string name="sunday">domingo</string>
+    <string name="continuee">Continuar</string>
+    <string name="sun">Sol</string>
+    <string name="tues">Mar</string>
+    <string name="wed">Mie</string>
+    <string name="thurs">Jue</string>
+    <string name="fri">Vie</string>
+    <string name="sat">Sab</string>
+    <string name="mon">" Lun"</string>
+
+</resources>

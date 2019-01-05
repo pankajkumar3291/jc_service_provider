@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="@dimen/_15sdp"
+    android:layout_marginRight="@dimen/_15sdp"
+    android:background="@drawable/dialog_bg"
+    android:padding="@dimen/_10sdp">
+
+
+    <TextView
+        android:id="@+id/tvRebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/_10sdp"
+        android:text="REBOOK"
+        android:textColor="#FF2088D3"
+        android:textSize="@dimen/_15sdp" />
+
+
+    <RelativeLayout
+        android:id="@+id/linearMain"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_300sdp"
+        android:layout_below="@+id/tvRebook"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <RelativeLayout
+            android:id="@+id/reClenaerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Cleaner Name"
+                android:textColor="#000"
+                android:textSize="@dimen/_13sdp" />
+
+
+            <TextView
+                android:id="@+id/tvCleanerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Jerry Cool"
+                android:textSize="@dimen/_13sdp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+
+            android:id="@+id/reYourRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reClenaerName"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Your Rating"
+                android:textColor="#000"
+                android:textSize="@dimen/_13sdp" />
+
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Jerry Cool"
+                android:textSize="@dimen/_13sdp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/reLastAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reYourRating"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Last Appointment"
+                android:textColor="#000"
+                android:textSize="@dimen/_13sdp" />
+
+
+            <TextView
+                android:id="@+id/tvLastAppointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Jerry Cool"
+                android:textSize="@dimen/_13sdp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relativeCleaningType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reLastAppointment"
+            android:layout_marginTop="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Clearing type"
+                android:textColor="#000"
+                android:textSize="@dimen/_13sdp" />
+
+
+            <TextView
+                android:id="@+id/tvClearingType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Jerry Cool"
+                android:textSize="@dimen/_13sdp" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tvRebookThisCleaningJobs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@drawable/continue_btn_background"
+            android:gravity="center"
+            android:text="Rebook this cleaning jobs"
+            android:textColor="#fff" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF3EA9F9">
+
+
+    <ImageView
+        android:id="@+id/image_tick"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:src="@drawable/ift" />
+
+
+    <LinearLayout
+        android:id="@+id/linearRefer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_tick"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tvCongrates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/refer_now_amp"
+            android:textColor="#FF182391"
+            android:textSize="@dimen/_16sdp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:text="Send a referal link to your friend via SMS/ Email/ Whatsapp "
+            android:textColor="#000"
+            android:textSize="@dimen/_15sdp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/referralCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearRefer"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="REFERRAL CODE"
+            android:textColor="#000"
+            android:textSize="@dimen/_16sdp" />
+
+
+        <TextView
+
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/dotted"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="XUVE684EW"
+            android:textColor="#FF182391"
+            android:textSize="@dimen/_16sdp" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvReferNow"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@+id/referralCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:background="@drawable/refer_now"
+        android:gravity="center"
+        android:text="Refer Now"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

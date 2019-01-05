@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#FFF">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFF" />
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <!--<stroke-->
+            <!--android:width="1px"-->
+            <!--android:color="#FFFDD433" />-->
+
+            <!--<solid android:color="#FFFDD433" />-->
+
+            <corners android:radius="@dimen/_10sdp" />
+
+
+            <gradient
+                android:angle="90"
+                android:endColor="#FFF8C42F"
+                android:startColor="#FFFDD433"
+                android:type="linear" />
+
+
+        </shape>
+
+
+    </item>
+</ripple>
+
+
+
+
+
+
+
+
+

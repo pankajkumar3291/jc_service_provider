@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_280sdp"
+    android:layout_gravity="center"
+    android:layout_marginLeft="@dimen/_15sdp"
+    android:layout_marginRight="@dimen/_15sdp"
+    android:background="@drawable/dialog_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_280sdp"
+        android:padding="@dimen/_10sdp">
+
+
+        <TextView
+            android:id="@+id/tvPersonalInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="PERSONAL INFO"
+            android:textColor="#000"
+            android:textSize="@dimen/_15sdp" />
+
+
+        <EditText
+            android:id="@+id/edPackingInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_below="@+id/tvPersonalInfo"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/btnwhite"
+            android:gravity="left"
+            android:hint="Packing instructions"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColorHint="#000"
+            android:textCursorDrawable="@drawable/cursor_color_cleaner"
+            android:textSize="@dimen/_12sdp" />
+
+
+        <EditText
+            android:id="@+id/edSpecialRequestCleaner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_below="@+id/edPackingInstructions"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/btnwhite"
+            android:gravity="left"
+            android:hint="Note/Special request to the cleaner"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColorHint="#000"
+            android:textCursorDrawable="@drawable/cursor_color_cleaner"
+            android:textSize="@dimen/_12sdp" />
+
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_below="@+id/edSpecialRequestCleaner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/about_us_back_bg"
+            android:gravity="center"
+            android:text="Submit"
+            android:textColor="#fff"
+            android:textSize="@dimen/_14sdp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
+
+
+

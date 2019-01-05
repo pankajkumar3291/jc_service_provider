@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_review_bg"
+    android:padding="@dimen/_20sdp">
+
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/tvNameReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Shahzeb Reviews"
+        android:textSize="@dimen/_20sdp" />
+
+
+    <RatingBar
+        android:id="@+id/writeReviewRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNameReview"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="3" />
+
+
+    <EditText
+        android:textCursorDrawable="@drawable/cursor_color_cleaner"
+        android:id="@+id/edWriteReview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_below="@+id/writeReviewRatingBar"
+        android:background="@drawable/ed_bg"
+        android:gravity="left"
+        android:hint="Write a Review"
+        android:inputType="text"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingTop="@dimen/_10sdp" />
+
+
+    <TextView
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@+id/edWriteReview"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/btn_submit"
+        android:gravity="center"
+        android:text="Submit"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

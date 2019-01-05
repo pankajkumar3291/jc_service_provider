@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">Cleaner(Customer)</string>
+
+
+    <!--just for testing ?-->
+
+
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="settings">Settings</string>
+    <string name="alert_text">Enter some text</string>
+    <string name="schedule">Schedule</string>
+    <string name="invite_friend">Invite Friend</string>
+    <string name="address_menu">Profile &amp; Address</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+
+    <string name="contact_support">Contact Support</string>
+
+    <string name="completed_appointments">Completed Appointments</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="action_show">Show</string>
+
+    <string name="snackbar_text">Snackbar Text</string>
+    <string name="some_text">Some Text</string>
+
+    <string name="loremipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Fusce lacus nisl, venenatis accumsan fermentum sed, auctor ut magna. Integer ante erat,
+        fermentum id feugiat quis, tristique eu tortor. Cras vel sodales diam, ut imperdiet urna.
+        Proin et nisl vitae ante scelerisque commodo ornare vel tortor. In eget viverra nisl, eu pellentesque nisi.
+        Donec molestie metus sed mauris sagittis, sed vestibulum ante rhoncus. Aenean vel neque id magna pretium viverra.
+        Phasellus pellentesque faucibus urna, lacinia scelerisque sem condimentum ut. Praesent at arcu eu orci fringilla
+        vehicula eu at ante. Nullam congue felis massa, at vehicula mauris efficitur egestas. In feugiat mi at orci ultricies
+        porttitor. Mauris fermentum nunc dui, ut tincidunt libero cursus pretium. Quisque eu vestibulum sapien. Donec non tempus ex.
+        Donec in accumsan elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+        Aliquam facilisis maximus enim eget sagittis. Vestibulum tincidunt dolor sit amet interdum porta. Fusce eu odio sem.
+        Proin non condimentum elit. Curabitur elit turpis, hendrerit eget velit et,
+        sagittis pellentesque felis. Donec in euismod nibh. </string>
+
+
+    <string name="sign_in">SIGN IN</string>
+    <string name="forget_password">Forget Password..?</string>
+    <string name="sign_in_with">Sign in with</string>
+    <string name="dont_have_an_account">Don\'t  have an account..?</string>
+    <string name="create_one">Create One</string>
+    <string name="user_name">User Name</string>
+    <string name="phone_email">PHONE/EMAIL</string>
+
+
+    <string name="enter_your_location">Select a saved address</string>
+    <string name="types_of_services">Types of services</string>
+    <string name="price">Price</string>
+
+
+    <string name="your_string_here"><u>Terms and Conditions</u> and <u>Special</u></string>
+
+
+    <string name="sign_up">SIGN UP</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="already_have_account">Already have an account.?</string>
+    <string name="signin">Sign In</string>
+
+
+    <string name="please_fill_the_fields">Please fill the above fields</string>
+    <string name="make_sure_email_must_be_in_format">Make sure emial must be in format</string>
+    <string name="password_must_be_like">Password must be like 1aA@123456</string>
+    <string name="atleast6_charatcer">At least 6 characters</string>
+
+    <string name="book_a_cleaner">Book a cleaner</string>
+    <string name="rebook">Rebook a previous cleaner </string>
+    <string name="create_an_automatic_schedule">Create an automatic cleaning schedule</string>
+    <string name="user_name_header">Shahzeb</string>
+    <string name="emal_id_header">Shahzeb@gmail.com</string>
+
+
+    <string name="continuee">Continue</string>
+
+
+    <string name="name">NAME</string>
+    <string name="address">ADDRESS</string>
+    <string name="email_">E-MAIL</string>
+    <string name="city_">CITY</string>
+    <string name="zip_code">ZIP CODE</string>
+    <string name="congratulations_your_order_is_complete">Congratulations \n your order is complete</string>
+    <string name="a_cleaner_will_be_sent_to">A cleaner will be sent to :</string>
+    <string name="address_">Address</string>
+    <string name="view_order_details">View Order Details</string>
+    <string name="refer_now_amp"><![CDATA[Refer now & earn up to $ 50.00]]></string>
+    <string name="save_and_continue">Save &amp; Continue</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="about_us">About Us</string>
+    <string name="sign_up_text">Sign up</string>
+    <string name="already_member">Already member ?</string>
+    <string name="sign_up_bar">Sign Up</string>
+    <string name="login_title">Login</string>
+    <string name="keep_me_logged_in">Keep me logged in</string>
+    <string name="login_btn">Login</string>
+    <string name="forget_password_">Forget password ?</string>
+    <string name="don_t_have_an_account_create_one">Don\'t have an account ? Create one</string>
+    <string name="phone_number">PHONE NUMBER</string>
+
+
+    <string name="font_name_fontawesome">sourcesanspro_semiboldIt.otf</string>
+    <string name="terms_conditions">Terms &amp; Conditions</string>
+    <string name="interior_painting">\"INTERIOR PAINTING\"</string>
+    <string name="password">PASSWORD</string>
+
+
+</resources>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:src="@drawable/s_logo"
+        android:visibility="gone" />
+
+
+    <RelativeLayout
+        android:id="@+id/relative_"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:id="@+id/linearBookCleanerbtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/book_a_cleaner"
+                android:gravity="center"
+                android:padding="@dimen/_20sdp"
+                android:text="@string/book_a_cleaner"
+                android:textColor="#fff"
+                android:textSize="@dimen/_20sdp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearRebook"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_below="@+id/linearBookCleanerbtn"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/rebook"
+                android:gravity="center"
+                android:padding="@dimen/_20sdp"
+                android:text="@string/rebook"
+                android:textColor="#fff"
+                android:textSize="@dimen/_20sdp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearCreateAutomaticCleaning"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_below="@+id/linearRebook"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/create_an_automatic"
+                android:gravity="center"
+                android:padding="@dimen/_20sdp"
+                android:text="@string/create_an_automatic_schedule"
+                android:textColor="#fff"
+                android:textSize="@dimen/_20sdp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
