@@ -15,6 +15,7 @@
             android:id="@+id/backarr"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:tint="@color/colorWhite"
             android:src="@drawable/back_arrow" />
 
 

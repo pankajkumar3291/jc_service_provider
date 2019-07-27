@@ -6,7 +6,7 @@
     <string name="settings">Configuraciones</string>
     <string name="schedule">Programar</string>
     <string name="sign_in">" INICIAR SESIÓN"</string>
-    <string name="forget_password">Olvidate de la contraseña ...?</string>
+    <string name="forget_password">¿Se te olvidó tu contraseña?</string>
     <string name="sign_in_with">" Inicia sesión con"</string>
     <string name="dont_have_an_account">No tienes una cuenta ..?</string>
     <string name="create_one">Crear uno</string>
@@ -33,6 +33,17 @@
     <string name="monthly">Mensual</string>
     <string name="six_monthly">6-Mensual</string>
     <string name="or">O</string>
+
+    <string name="previous_jobs">TRABAJOS PREVIOS</string>
+    <string name="rebook1">Rebook</string>
+
+
+    <string name="refer_now_amp" >Consulte ahora y gane hasta $ 50.00</string>
+    <string name="send_a_referal_link_to_your_friend_via_sms_email_whatsapp">Envíe un enlace de referencia a su amigo a través de SMS / Email / Whatsapp</string>
+    <string name="referral_code">CÓDIGO DE REFERENCIA</string>
+    <string name="refer_now">Consulte ahora</string>
+
+    <string name="name">NOMBRE</string>
     <string name="monday">lunes</string>
     <string name="tuesday">" martes"</string>
     <string name="wednesday">miércoles</string>
@@ -40,6 +51,33 @@
     <string name="friday">viernes</string>
     <string name="saturday">" sábado"</string>
     <string name="sunday">domingo</string>
+
+    <string name="success">ÉXITO</string>
+    <string name="this_is_the_default_text">Este es el texto por defecto</string>
+    <string name="ok">De acuerdo</string>
+
+    <string name="logout">Cerrar sesión</string>
+    <string name="logging_out">Saliendo de tu cuenta</string>
+    <string name="do_you_really_want_to_logout">¿Realmente quieres cerrar sesión?</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
+
+    <string name="change_password">CAMBIA LA CONTRASEÑA</string>
+    <string name="please_enter_your_new_password">Por favor ingrese su nueva contraseña</string>
+    <string name="old_password">CONTRASEÑA ANTERIOR</string>
+    <string name="new_password">NUEVA CONTRASEÑA</string>
+    <string name="confirm_new_password">CONFIRMAR NUEVA CONTRASEÑA</string>
+    <string name="save">SALVAR</string>
+
+
+
+    <string name="daily_jobs_schedule">Horario diario de trabajos</string>
+    <string name="select_your_time">Selecciona tu tiempo</string>
+    <string name="your_time_is">Tu tiempo es:</string>
+    <string name="select_your_zipcode">Seleccione su código postal</string>
+    <string name="enter_your_address">Ingrese su direccion</string>
+    <string name="submit1">Enviar</string>
+    <string name="already_member">¿Ya eres miembro?</string>
     <string name="continuee">Continuar</string>
     <string name="sun">Sol</string>
     <string name="tues">Mar</string>
@@ -48,5 +86,55 @@
     <string name="fri">Vie</string>
     <string name="sat">Sab</string>
     <string name="mon">" Lun"</string>
+    <string name="about_us">Sobre nosotros</string>
+    <string name="address">DIRECCIÓN</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="login_btn">Iniciar sesión</string>
+    <string name="login_title">Iniciar sesión</string>
+    <string name="sign_up_bar">Regístrate</string>
+    <string name="sign_up_text">Regístrate</string>
+    <string name="terms_conditions">Términos y condiciones</string>
+    <string name="address_menu">Direccion de perfil</string>
+    <string name="alert_text">Introduce algún texto</string>
+    <string name="address_">Dirección</string>
+    <string name="action_show">Show</string>
+    <string name="a_cleaner_will_be_sent_to">Un limpiador será enviado a:</string>
+    <string name="cancel_appointments">Citas canceladas</string>
+    <string name="city_">CIUDAD</string>
+    <string name="weekly_job_schedule">Horario de trabajo semanal</string>
+    <string name="completed_appointments">Citas completadas</string>
+    <string name="contact_support">Soporte de contacto</string>
+    <string name="don_t_have_an_account_create_one">¿No tienes una cuenta? Crea uno</string>
+    <string name="email_">CORREO ELECTRÓNICO</string>
+    <string name="enter_your_location">Seleccione una dirección guardada</string>
+    <string name="forget_password_">¿Se te olvidó tu contraseña?</string>
+    <string name="invite_friend">Invitar a un amigo</string>
+    <string name="interior_painting">\"PINTURA INTERIOR\"</string>
+    <string name="keep_me_logged_in">Mantenme conectado</string>
+    <string name="phone_email">TELEFONO / CORREO ELECTRONICO</string>
+    <string name="phone_number">NÚMERO DE TELÉFONO</string>
+    <string name="price">Precio</string>
+    <string name="rebook">Rebook un limpiador anterior</string>
+    <string name="register">Registro</string>
+    <string name="save_and_continue">Guardar Continuar</string>
+    <string name="select_cities">Ciudades seleccionadas</string>
+    <string name="select_states">Estados seleccionados</string>
+    <string name="select_zipcode">Seleccione el código postal</string>
+    <string name="snackbar_text">Texto Snackbar</string>
+    <string name="some_text">Algún texto</string>
+    <string name="types_of_services">Tipos de servicios</string>
+    <string name="upcoming_appointments">Próximas citas</string>
+    <string name="view_order_details">Ver detalles de la orden</string>
+    <string name="apply_to_work_with_us">¡Aplica para trabajar con nosotros!</string>
+    <string name="company_info">Información de la compañía</string>
+    <string name="faq">Preguntas frecuentes</string>
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="terms_and_conditions">Términos y Condiciones</string>
+    <string name="book_a_cleaner1">RESERVA UN LIMPIADOR</string>
+    <string name="enter_address">Ingresa la direccion</string>
+    <string name="enter_zip_code">Ingresa tu código postal</string>
+    <string name="pick_your_date">Elige tu fecha</string>
+    <string name="pick_your_time">Escoge tu tiempo</string>
+    <string name="submit">Enviar</string>
 
 </resources>

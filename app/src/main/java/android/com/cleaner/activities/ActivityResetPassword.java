@@ -42,30 +42,25 @@ public class ActivityResetPassword extends AppCompatActivity implements Validato
 
     private TextView tvSubmit;
 
-
     Validator validator;
     ProgressDialog mProgressDialog;
 
-
     private NoInternetDialog noInternetDialog;
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
-
         noInternetDialog = new NoInternetDialog.Builder(this).build();
-
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivityResetPassword.this, R.color.statusBarColor));
-
         findingIdsHere();
         initializingValidationHere();
-
-
+        findViewById(R.id.backarr).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -145,8 +140,6 @@ public class ActivityResetPassword extends AppCompatActivity implements Validato
                     TastyToast.makeText(ActivityResetPassword.this, "Null Body", TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
 
                 }
-
-
             }
 
             @Override
@@ -155,8 +148,6 @@ public class ActivityResetPassword extends AppCompatActivity implements Validato
                 mProgressDialog.dismiss();
             }
         });
-
-
     }
 
     private void callSignInActivityFromHereToLoginAgain() {
@@ -165,33 +156,20 @@ public class ActivityResetPassword extends AppCompatActivity implements Validato
         startActivity(intent);
 
     }
-
-
     @Override
     public void onValidationSucceeded() {
-
         callingResetPasswordApiFromHere();
-
-
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
         mProgressDialog.dismiss();
-
         for (ValidationError error : errors) {
-
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
-
-
             if (view instanceof EditText) {  // Display error messages
-
                 ((EditText) view).setError(message);
-
             } else {
-
-
             }
         }
 

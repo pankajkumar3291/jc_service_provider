@@ -19,7 +19,6 @@
                 android:type="linear" />
 
 
-            <corners android:radius="@dimen/_5sdp" />
 
 
         </shape>

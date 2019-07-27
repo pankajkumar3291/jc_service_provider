@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.orhanobut.hawk.Hawk;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.ArrayList;
@@ -44,9 +45,8 @@ public class ActivityOffredServices extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offred_services);
+
         noInternetDialog = new NoInternetDialog.Builder(this).build();
-
-
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivityOffredServices.this, R.color.statusBarColor));
 
 
@@ -80,7 +80,7 @@ public class ActivityOffredServices extends AppCompatActivity {
     private void callingAdapterHere() {
 
 
-        compositeDisposable.add(HttpModule.provideRepositoryService().getOffrredServicesAPI().
+        compositeDisposable.add(HttpModule.provideRepositoryService().getOffrredServicesAPI(Hawk.get("spanish",false)?"es":"en").
                 subscribeOn(io.reactivex.schedulers.Schedulers.computation()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Consumer<OfferredServices>() {
@@ -92,8 +92,6 @@ public class ActivityOffredServices extends AppCompatActivity {
                         if (offerredServices != null && offerredServices.getIsSuccess()) {
 
                             mProgressDialog.dismiss();
-
-                            TastyToast.makeText(ActivityOffredServices.this, offerredServices.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                             OffredServicesAdapter offredServicesAdapter = new OffredServicesAdapter(ActivityOffredServices.this, offerredServices.getPayload());
                             recyclerViewOffredServices.setHasFixedSize(true);
                             recyclerViewOffredServices.setLayoutManager(new LinearLayoutManager(ActivityOffredServices.this));

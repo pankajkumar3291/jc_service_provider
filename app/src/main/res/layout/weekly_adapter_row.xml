@@ -18,21 +18,24 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:buttonTint="#fff"
             android:text="Demo"
-            android:textColor="#fff"
+            android:textColor="#FFF"
             android:visibility="visible" />
 
 
         <TextView
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
             android:id="@+id/tvWeekly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:drawableLeft="@drawable/time_icon"
             android:gravity="center"
-            android:text="Shahzeb"
-            android:textColor="#fff" />
+            android:text="Select your time"
+            android:textColor="#fff"
+            android:visibility="gone" />
     </RelativeLayout>
 
 

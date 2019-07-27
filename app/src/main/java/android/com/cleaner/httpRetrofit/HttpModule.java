@@ -11,37 +11,27 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 public class HttpModule {
 
     private static OkHttpClient getOkkHttpClient() {
-
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-
-        logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
-        return new OkHttpClient.Builder().writeTimeout(60, TimeUnit.SECONDS).connectTimeout(60, TimeUnit.SECONDS).build();
-
+        logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.BODY);
+        return new OkHttpClient.Builder().writeTimeout(60, TimeUnit.SECONDS).connectTimeout(60, TimeUnit.SECONDS).addInterceptor(logging).build();
     }
-
-
-    public static Retrofit getRetroFitClient() {
+    public static Retrofit getRetroFitClient(){
         return new Retrofit.Builder()
-                .baseUrl("http://192.168.0.13/CleanerUp/cleaning_service/public/api/")
+                .baseUrl("http://smartit.ventures/CS/cleaning_service/public/api/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .client(getOkkHttpClient())
                 .build();
 
-
         // MARK: LIVE URL
+        //http://192.168.0.3/CleanerUp/cleaning_service/public/api/
         // http://smartit.ventures/CS/cleaning_service/public/api/
-
-
         // MARK: TESTING URL
-//       http://192.168.0.13/CleanerUp/cleaning_service/public/api/customer/
-
+//       http://192.168.0.8/CleanerUp/cleaning_service/public/api/customer/
     }
-
     public static RemoteRepositoryService provideRepositoryService() {
         return getRetroFitClient().create(RemoteRepositoryService.class);
     }

@@ -17,6 +17,9 @@ public class BookCleaner {
     @Expose
     private String message;
 
+    @SerializedName("payLoad")
+    @Expose
+    private PayLoad payLoad;
 
     public Boolean getIsSuccess() {
         return isSuccess;
@@ -40,6 +43,14 @@ public class BookCleaner {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public PayLoad getPayLoad() {
+        return payLoad;
+    }
+
+    public void setPayLoad(PayLoad payLoad) {
+        this.payLoad = payLoad;
     }
 
 }

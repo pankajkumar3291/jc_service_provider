@@ -27,6 +27,15 @@
             android:id="@+id/completed_appointments"
             android:title="@string/completed_appointments" />
 
+
+
+
+        <item
+            android:id="@+id/cancel_appointments"
+            android:title="@string/cancel_appointments" />
+
+
+
     </group>
 
 </menu>

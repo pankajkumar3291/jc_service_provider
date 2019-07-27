@@ -25,7 +25,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -50,139 +52,90 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivitySignUp extends BaseActivity implements View.OnClickListener, Validator.ValidationListener {
 
-
     private ImageView backArrowImage;
-
-
     @NotEmpty(message = "Please enter the name")
     public EditText edName;
-
     @NotEmpty(message = "Please enter the address")
     public EditText edAddress;
-
     @NotEmpty
     public EditText edPhoneNumber;
-
     @NotEmpty
     @Email(message = "Please enter the valid email")
     public EditText edEmail;
-
     @NotEmpty
-    @Password(message = "Please enter the valid password")
+    @Password(message = "password minimum 8 character", min = 8)
     // , min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS
     public EditText edPassword;
-
     @NotEmpty(message = "Please enter the city")
     public EditText edCity;
-
     @NotEmpty(message = "Please enter the zip code")
     public EditText edZipCode;
-
     private Spinner spinnerStates, spinnerCities, spinnerZipCode;
-
     private TextView tvAlreadyMember, tvStates;
     private TextView SignUpBtn;
     private Context context;
-
     Validator validator;
     ProgressDialog mProgressDialog;
-
     private NoInternetDialog noInternetDialog;
     private String android_DeviceID;
-
-
     private CompositeDisposable disposable = new CompositeDisposable();
-
-
     private ArrayList<String> statelistIdPos = new ArrayList<>();
     private ArrayList<String> citylistIdPos = new ArrayList<>();
     private ArrayList<String> zipCodelistIdPos = new ArrayList<>();
-
-
     private String stateIdHolder, cityIdHolder, zipCodeIdHolder;
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_new);
-
-
         context = this;
         noInternetDialog = new NoInternetDialog.Builder(this).build();
         Hawk.init(this).build();
-
-
         // MARK: METHODS
-
         findingIdsHere();
         initializingValidationHere();
         eventListener();
         changingStatusBarColorHere();
-
-
         spinnerForStateOperationGoesHere();
-
     }
-
-    private void spinnerForStateOperationGoesHere() {
-
-        HttpModule.provideRepositoryService().getStateListAPI().enqueue(new Callback<GetStateList>() {
+    private void spinnerForStateOperationGoesHere(){
+        HttpModule.provideRepositoryService().getStateListAPI().enqueue(new Callback<GetStateList>(){
             @Override
-            public void onResponse(Call<GetStateList> call, Response<GetStateList> response) {
-
-                if (response.body() != null) {
-
-                    if (response.body() != null && response.body().getIsSuccess()) {
-
+            public void onResponse(Call<GetStateList> call, Response<GetStateList> response){
+                if (response.body() != null){
+                    if (response.body() != null && response.body().getIsSuccess()){
                         spinnerSetupForState(response.body().getPayload());
-
                     } else {
                         TastyToast.makeText(ActivitySignUp.this, response.body().getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                     }
 
                 } else {
                     TastyToast.makeText(ActivitySignUp.this, "Null body", TastyToast.LENGTH_SHORT, TastyToast.WARNING).show();
-
                 }
-
             }
-
             @Override
             public void onFailure(Call<GetStateList> call, Throwable t) {
 
                 System.out.println("ActivitySignUp.onFailure " + t);
             }
         });
-
-
     }
 
     private void spinnerSetupForState(List<Payload> payload) {
-
-
         ArrayList<String> stateArrList = new ArrayList<>();
         stateArrList.add("Choose states");
         statelistIdPos.add("0");
-
-
         for (int i = 0; i < payload.size(); i++) {
             stateArrList.add(payload.get(i).getName());
             statelistIdPos.add(String.valueOf(payload.get(i).getId()));
         }
-
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, stateArrList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStates.setDropDownWidth(700);
         spinnerStates.setAdapter(dataAdapter);
-
-
         spinnerItemSelectionForState();
-
-
     }
 
-    private void spinnerItemSelectionForState() {
+    private void spinnerItemSelectionForState(){
 
 
         spinnerStates.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -191,6 +144,9 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
 
 
                 stateIdHolder = statelistIdPos.get(position);
+
+                Hawk.put("STATE_ID_HOLDER", stateIdHolder);
+
                 spinnerForCitiesOperationGoesHere(stateIdHolder);
 
             }
@@ -239,18 +195,12 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
                         TastyToast.makeText(ActivitySignUp.this, throwable.toString(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                     }
                 }));
-
-
     }
 
     private void spinnerSetupForCityGoesHere(CityList cityList) {
-
-
         ArrayList<String> cityArrayList = new ArrayList<>();
         cityArrayList.add("Choose cities");
         citylistIdPos.add("0");
-
-
         for (int j = 0; j < cityList.getPayload().size(); j++) {
 
 
@@ -258,16 +208,11 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
             citylistIdPos.add(String.valueOf(cityList.getPayload().get(j).getId()));
 
         }
-
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cityArrayList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCities.setDropDownWidth(700);
         spinnerCities.setAdapter(dataAdapter);
-
-
         spinnerItemSelectionForCity();
-
-
     }
 
     private void spinnerItemSelectionForCity() {
@@ -279,6 +224,7 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
 
 
                 cityIdHolder = citylistIdPos.get(position);
+                Hawk.put("CITY_ID_HOLDER", cityIdHolder);
                 spinnerForZipCodeOperationGoesHere(cityIdHolder);
 
             }
@@ -366,6 +312,7 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
 
 
                 zipCodeIdHolder = zipCodelistIdPos.get(position);
+                Hawk.put("ZIPCODE_ID_HOLDER", zipCodeIdHolder);
 
             }
 
@@ -376,8 +323,6 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
 
             }
         });
-
-
     }
 
 
@@ -467,10 +412,8 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
                 break;
 
             case R.id.SignUpBtn:
-
                 loginProgressing();
                 validator.validate();
-
                 break;
         }
 
@@ -498,29 +441,39 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onValidationSucceeded() {
-
         clearingTheEdittextHere();
         savingEnteredValues();
         gettingEnteredValues();
 
-
-        if (spinnerStates.getSelectedItem().toString().equalsIgnoreCase("Select State")) {
-
+        if (spinnerStates.getSelectedItem().toString().equalsIgnoreCase("Select State") ||spinnerStates.getSelectedItem().toString().equalsIgnoreCase("Choose states")) {
             mProgressDialog.dismiss();
             TastyToast.makeText(ActivitySignUp.this, "Please select state", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-        } else {
-
-            callingSignUpApiHere();
+        }
+        else if(spinnerCities.getSelectedItem().toString().equalsIgnoreCase("Choose cities"))
+        {
+            mProgressDialog.dismiss();
+            Toast.makeText(getApplicationContext(),"Please select cities",Toast.LENGTH_SHORT).show();
         }
 
-
+        else if(spinnerZipCode.getSelectedItem().toString().equalsIgnoreCase("Choose zipcode"))
+        {
+            mProgressDialog.dismiss();
+            Toast.makeText(getApplicationContext(),"Please select zipcode",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            callingSignUpApiHere();
+        }
     }
-
     private void callingSignUpApiHere() {
 
         android_DeviceID = Settings.Secure.getString(ActivitySignUp.this.getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        HttpModule.provideRepositoryService().signUpAPI(edName.getText().toString(), "SmartItVentures", edEmail.getText().toString(), edPassword.getText().toString(), edPhoneNumber.getText().toString(), edAddress.getText().toString(), android_DeviceID, "A", "cu", "12", "newCity", "40021").enqueue(new Callback<SignUp>() {
+
+        String firebaseToekn = FirebaseInstanceId.getInstance().getToken();
+
+
+        HttpModule.provideRepositoryService().signUpAPI(edName.getText().toString(), "SmartItVentures", edEmail.getText().toString(), edPassword.getText().toString(), edPhoneNumber.getText().toString(), edAddress.getText().toString(), "A", "cu", Integer.parseInt(stateIdHolder), cityIdHolder, Integer.parseInt(zipCodeIdHolder), firebaseToekn).enqueue(new Callback<SignUp>() {
             @Override
             public void onResponse(Call<SignUp> call, Response<SignUp> response) {
 
@@ -547,6 +500,7 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
                         }, 2000);
 
                     } else {
+
                         showTheDialogMessageForError(response.body().getMessage());
 
                     }
@@ -573,7 +527,6 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
     }
 
     private void savingTheValuesinHawkHere() {
-
         Hawk.put("FIRST_NAME", edName.getText().toString());
         Hawk.put("EMAIL_ID", edEmail.getText().toString());
         Hawk.put("PASSWORD", edPassword.getText().toString());
@@ -582,8 +535,6 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
         Hawk.put("STATE_VALUE", spinnerStates.getSelectedItem().toString());
         Hawk.put("CITY_VALUE", spinnerCities.getSelectedItem().toString());
         Hawk.put("ZIPCODE_VALUE", spinnerZipCode.getSelectedItem().toString());
-
-
     }
 
     private void clearingTheEdittextHere() {

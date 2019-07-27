@@ -14,7 +14,6 @@
         android:layout_marginTop="@dimen/_40sdp"
         android:src="@drawable/ift" />
 
-
     <LinearLayout
         android:id="@+id/linearRefer"
         android:layout_width="match_parent"
@@ -42,7 +41,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="@dimen/_5sdp"
-            android:text="Send a referal link to your friend via SMS/ Email/ Whatsapp "
+            android:text="@string/send_a_referal_link_to_your_friend_via_sms_email_whatsapp"
             android:textColor="#000"
             android:textSize="@dimen/_15sdp" />
 
@@ -64,20 +63,20 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="@dimen/_10sdp"
-            android:text="REFERRAL CODE"
+            android:text="@string/referral_code"
             android:textColor="#000"
             android:textSize="@dimen/_16sdp" />
 
 
         <TextView
-
+            android:id="@+id/tvRefferalCode"
             android:layout_width="@dimen/_160sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/dotted"
             android:gravity="center"
             android:padding="@dimen/_10sdp"
-            android:text="XUVE684EW"
+            android:text=""
             android:textColor="#FF182391"
             android:textSize="@dimen/_16sdp" />
 
@@ -94,7 +93,7 @@
         android:layout_marginTop="@dimen/_40sdp"
         android:background="@drawable/refer_now"
         android:gravity="center"
-        android:text="Refer Now"
+        android:text="@string/refer_now"
         android:textColor="@color/white" />
 
 

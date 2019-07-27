@@ -33,7 +33,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:gravity="center_horizontal"
             android:padding="@dimen/_10sdp"
-            android:text="SUCCESS"
+            android:text="@string/success"
             android:textColor="#FFF"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold" />
@@ -57,7 +57,7 @@
         android:layout_below="@+id/view"
         android:gravity="center_horizontal"
         android:padding="@dimen/_10sdp"
-        android:text="This is the default text"
+        android:text="@string/this_is_the_default_text"
         android:textColor="#FFFFFF"
         android:textSize="@dimen/_15sdp"
         android:textStyle="bold" />
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Ok"
+            android:text="@string/ok"
             android:textColor="#fff"
             android:textStyle="bold" />
 

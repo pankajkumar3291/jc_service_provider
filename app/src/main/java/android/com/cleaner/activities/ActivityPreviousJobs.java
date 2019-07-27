@@ -2,6 +2,9 @@ package android.com.cleaner.activities;
 
 import android.com.cleaner.R;
 import android.com.cleaner.adapters.PreviousJobsAdapter;
+import android.com.cleaner.apiResponses.allPreviousJobs.AllPreviousJobs;
+import android.com.cleaner.apiResponses.completedJobs.CustomerCompletedJobs;
+import android.com.cleaner.httpRetrofit.HttpModule;
 import android.com.cleaner.interfaces.ItemClickListenerTwo;
 import android.com.cleaner.models.PreviousJobs;
 import android.content.Context;
@@ -16,10 +19,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
+import com.orhanobut.hawk.Hawk;
+import com.sdsmdg.tastytoast.TastyToast;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import am.appwise.components.ni.NoInternetDialog;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityPreviousJobs extends AppCompatActivity implements ItemClickListenerTwo {
@@ -27,6 +37,7 @@ public class ActivityPreviousJobs extends AppCompatActivity implements ItemClick
 
     private RecyclerView recyclerViewPreviousJobs;
     private Context context;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
     List<PreviousJobs> jobsList;
@@ -40,19 +51,12 @@ public class ActivityPreviousJobs extends AppCompatActivity implements ItemClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_jobs);
-
-
         noInternetDialog = new NoInternetDialog.Builder(this).build();
 
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivityPreviousJobs.this, R.color.statusBarColor));
         context = this;
-
-
         findingIdsHere();
-
         callingAdapterHere();
-
-
     }
 
     @Override
@@ -71,23 +75,61 @@ public class ActivityPreviousJobs extends AppCompatActivity implements ItemClick
     private void callingAdapterHere() {
 
 
-        jobsList = new ArrayList<>();
+//        jobsList = new ArrayList<>();
+//
+//        jobsList.add(new PreviousJobs("Hell cleaning center"));
+//        jobsList.add(new PreviousJobs("Shahzeb "));
+//        jobsList.add(new PreviousJobs("SmartIT "));
+//        jobsList.add(new PreviousJobs("Ropar Punjab"));
+//        jobsList.add(new PreviousJobs("Charanveer singh "));
+//        jobsList.add(new PreviousJobs("Surinder Singh"));
+//        jobsList.add(new PreviousJobs("Cleaner call"));
+//        jobsList.add(new PreviousJobs("Enjoy here"));
+//
+//
+//        PreviousJobsAdapter previousJobsAdapter = new PreviousJobsAdapter(context, jobsList);
+//        recyclerViewPreviousJobs.setHasFixedSize(true);
+//        recyclerViewPreviousJobs.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerViewPreviousJobs.setAdapter(previousJobsAdapter);
+//        previousJobsAdapter.setClickListener(this);
 
-        jobsList.add(new PreviousJobs("Hell cleaning center"));
-        jobsList.add(new PreviousJobs("Shahzeb "));
-        jobsList.add(new PreviousJobs("SmartIT "));
-        jobsList.add(new PreviousJobs("Ropar Punjab"));
-        jobsList.add(new PreviousJobs("Charanveer singh "));
-        jobsList.add(new PreviousJobs("Surinder Singh"));
-        jobsList.add(new PreviousJobs("Cleaner call"));
-        jobsList.add(new PreviousJobs("Enjoy here"));
+
+        compositeDisposable.add(HttpModule.provideRepositoryService().
+                allPreviousJobs(Hawk.get("spanish",false)?"es":"en",String.valueOf(Hawk.get("savedUserId"))).
+                subscribeOn(io.reactivex.schedulers.Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Consumer<AllPreviousJobs>() {
+
+                    @Override
+                    public void accept(AllPreviousJobs allPreviousJobs) throws Exception {
 
 
-        PreviousJobsAdapter previousJobsAdapter = new PreviousJobsAdapter(context, jobsList);
-        recyclerViewPreviousJobs.setHasFixedSize(true);
-        recyclerViewPreviousJobs.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewPreviousJobs.setAdapter(previousJobsAdapter);
-        previousJobsAdapter.setClickListener(this);
+                        if (allPreviousJobs != null && allPreviousJobs.getIsSuccess()) {
+                            PreviousJobsAdapter previousJobsAdapter = new PreviousJobsAdapter(context, allPreviousJobs.getPayload());
+                            recyclerViewPreviousJobs.setHasFixedSize(true);
+                            recyclerViewPreviousJobs.setLayoutManager(new LinearLayoutManager(ActivityPreviousJobs.this));
+                            recyclerViewPreviousJobs.setAdapter(previousJobsAdapter);
+                            previousJobsAdapter.setClickListener(ActivityPreviousJobs.this);
+
+                        } else {
+
+                            TastyToast.makeText(ActivityPreviousJobs.this, Objects.requireNonNull(allPreviousJobs).getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+
+                        }
+
+
+                    }
+
+                }, new Consumer<Throwable>() {
+
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        TastyToast.makeText(ActivityPreviousJobs.this, throwable.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+
+                    }
+
+                }));
 
 
     }

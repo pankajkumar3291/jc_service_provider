@@ -1,10 +1,9 @@
 package android.com.cleaner.fragments;
 
 import android.com.cleaner.R;
-import android.com.cleaner.activities.ActivityCompanyInfo;
-import android.com.cleaner.adapters.CompanyInfoAdapter;
 import android.com.cleaner.adapters.CompletedAppointmentsAdapter;
-import android.com.cleaner.models.CompletedAppointments;
+import android.com.cleaner.apiResponses.completedJobs.CustomerCompletedJobs;
+import android.com.cleaner.httpRetrofit.HttpModule;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,10 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.orhanobut.hawk.Hawk;
+import com.sdsmdg.tastytoast.TastyToast;
+
+import java.util.Objects;
 
 import am.appwise.components.ni.NoInternetDialog;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class FragmentCompletedAppointment extends Fragment {
@@ -28,9 +32,11 @@ public class FragmentCompletedAppointment extends Fragment {
     private View view;
     private RecyclerView recyclerCmpletedAppointments;
 
-    List<CompletedAppointments> appointmentsList;
 
     private NoInternetDialog noInternetDialog;
+
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
 
     @Nullable
     @Override
@@ -39,13 +45,9 @@ public class FragmentCompletedAppointment extends Fragment {
         view = inflater.inflate(R.layout.fragment_completed_appointments, container, false);
 
         noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
-
         findingIdsHere(view);
         settingUpTheAdapterHere(view);
-
         return view;
-
-
     }
 
     @Override
@@ -56,22 +58,35 @@ public class FragmentCompletedAppointment extends Fragment {
 
     private void settingUpTheAdapterHere(View view) {
 
-        appointmentsList = new ArrayList<>();
 
-        appointmentsList.add(new CompletedAppointments("Shahzeb", "A", "100", "13-Nov-2018"));
-        appointmentsList.add(new CompletedAppointments("Sakshi", "B", "200", "20-Nov-2018"));
-        appointmentsList.add(new CompletedAppointments("Manpreet", "C", "300", "29-Nov-2018"));
-        appointmentsList.add(new CompletedAppointments("Sameer", "D", "10", "13-Dec-2018"));
-        appointmentsList.add(new CompletedAppointments("Anupriya", "E", "15", "20-Dec-2018"));
-        appointmentsList.add(new CompletedAppointments("Ajay", "F", "25", "30-Dec-2018"));
-        appointmentsList.add(new CompletedAppointments("Gurdeep", "G", "0", "31-Dec-2018"));
+        compositeDisposable.add(HttpModule.provideRepositoryService().customerCompletedJobsApi(Hawk.get("spanish",false)?"es":"en",String.valueOf(Hawk.get("savedUserId"))).
+                subscribeOn(io.reactivex.schedulers.Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Consumer<CustomerCompletedJobs>() {
+                    @Override
+                    public void accept(CustomerCompletedJobs customerCompletedJobs) throws Exception {
+                        if (customerCompletedJobs != null && customerCompletedJobs.getIsSuccess()) {
+
+                            CompletedAppointmentsAdapter appointmentsAdapter = new CompletedAppointmentsAdapter(getActivity(), customerCompletedJobs.getPayload());
+                            recyclerCmpletedAppointments.setHasFixedSize(true);
+                            recyclerCmpletedAppointments.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerCmpletedAppointments.setAdapter(appointmentsAdapter);
+                        } else {
+
+                            TastyToast.makeText(getActivity(), Objects.requireNonNull(customerCompletedJobs).getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+                        }
+                    }
 
 
-        CompletedAppointmentsAdapter appointmentsAdapter = new CompletedAppointmentsAdapter(getActivity(), appointmentsList);
-        recyclerCmpletedAppointments.setHasFixedSize(true);
-        recyclerCmpletedAppointments.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerCmpletedAppointments.setAdapter(appointmentsAdapter);
+                }, new Consumer<Throwable>() {
 
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+
+
+                }));
 
     }
 

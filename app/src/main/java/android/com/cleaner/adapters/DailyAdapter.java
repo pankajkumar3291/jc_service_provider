@@ -25,7 +25,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.DailyViewHol
 
     private Context mCtx;
     private List<Time> list;
-    View view;
+    private View view;
 
     private boolean isDailyBtnClicked = false;
 

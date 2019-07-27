@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_landing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,8 +13,6 @@
         android:layout_height="wrap_content"
         android:background="#3374de"
         android:padding="@dimen/_10sdp">
-
-
         <ImageView
             android:id="@+id/backarr"
             android:layout_width="@dimen/_20sdp"
@@ -37,12 +36,12 @@
     <ImageView
         android:id="@+id/img_background"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_height="@dimen/_90sdp"
         android:layout_below="@+id/tool"
-        android:background="#000"
-        android:src="@drawable/test" />
+        android:scaleType="fitXY"
+        android:src="@drawable/cleaner_bg" />
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cleanearsProfile"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -50,9 +49,9 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="-40dp"
-        android:src="@drawable/shahzeb"
+        android:src="@drawable/cleaner_default"
         app:civ_border_color="#fff"
-        app:civ_border_width="2dp" />
+        app:civ_border_width="1dp" />
 
 
     <TextView
@@ -62,7 +61,7 @@
         android:layout_below="@+id/cleanearsProfile"
         android:layout_centerInParent="true"
         android:text="Shahzeb"
-        android:textColor="@color/black" />
+        android:textColor="#093c56" />
 
 
     <TextView
@@ -103,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="("
+            android:textColor="#093c56"
             android:textSize="@dimen/_14sdp" />
 
 
@@ -111,6 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="125"
+            android:textColor="#093c56"
             android:textSize="@dimen/_14sdp" />
 
 
@@ -119,6 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Reviews"
+            android:textColor="#093c56"
             android:textSize="@dimen/_14sdp" />
 
 
@@ -127,6 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text=")"
+            android:textColor="#093c56"
             android:textSize="@dimen/_14sdp" />
 
 
@@ -158,7 +161,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chat" />
+                android:layout_gravity="center"
+                android:text="Chat"
+                android:textColor="#093c56" />
 
 
         </LinearLayout>
@@ -212,29 +217,29 @@
             android:background="#093c56" />
 
 
-        <TextView
-            android:id="@+id/tvWorkingHours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvAbout"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:text="Working hours"
-            android:textColor="#093c56"
-            android:textSize="@dimen/_14sdp" />
-
-
         <LinearLayout
             android:id="@+id/linearWorkingHours"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvWorkingHours"
+            android:layout_below="@+id/tvAbout"
             android:layout_marginTop="@dimen/_5sdp"
             android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tvWorkingHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAbout"
+                android:text="Working hours :"
+                android:textColor="#093c56"
+                android:textSize="@dimen/_14sdp" />
 
             <TextView
                 android:id="@+id/tvStartTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_40sdp"
                 android:text="9:00 AM"
                 android:textColor="#093c56"
                 android:textSize="@dimen/_14sdp" />
@@ -242,7 +247,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:text="-"
                 android:textColor="#093c56"
                 android:textSize="@dimen/_14sdp" />
@@ -251,6 +256,7 @@
                 android:id="@+id/tvLastTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:text="5:00 PM"
                 android:textColor="#093c56"
                 android:textSize="@dimen/_14sdp" />
@@ -291,7 +297,6 @@
 
 
     <TextView
-
         android:id="@+id/tvProfileContinue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"

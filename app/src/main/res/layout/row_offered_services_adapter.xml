@@ -39,20 +39,39 @@
             android:textStyle="bold" />
 
 
-        <TextView
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+
             android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_60sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/_3sdp"
+            android:layout_toRightOf="@id/profileImage"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="normal"
+            android:visibility="visible" />
+        <!--android:scrollbars="vertical"-->
+
+
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+
+            android:id="@+id/tvDescriptionSeeMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tvTitle"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/_3sdp"
             android:layout_toRightOf="@id/profileImage"
             android:gravity="center"
-            android:scrollbars="vertical"
-            android:text=""
+            android:text="ttttttttttttttttttttttttttttt"
+
             android:textColor="@color/white"
             android:textSize="@dimen/_10sdp"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:visibility="gone" />
 
 
     </RelativeLayout>

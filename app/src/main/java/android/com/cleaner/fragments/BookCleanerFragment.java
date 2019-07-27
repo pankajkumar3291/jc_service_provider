@@ -50,7 +50,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class BookCleanerFragment extends Fragment implements View.OnClickListener {
 
 
-    private LinearLayout linearBookCleanerbtn, linearRebook, linearCreateAutomaticCleaning;
+    private LinearLayout linearBookCleanerbtn, linearRebook,linearCreateAutomaticCleaning;
     private View view;
 
 
@@ -254,7 +254,7 @@ public class BookCleanerFragment extends Fragment implements View.OnClickListene
 
     private void typesOfSerivesApi() {
 
-        HttpModule.provideRepositoryService().makingTypesOfServices().enqueue(new Callback<TypesOfSerives>() {
+        HttpModule.provideRepositoryService().makingTypesOfServices(Hawk.get("spanish",false)?"es":"en").enqueue(new Callback<TypesOfSerives>() {
             @Override
             public void onResponse(Call<TypesOfSerives> call, Response<TypesOfSerives> response) {
 

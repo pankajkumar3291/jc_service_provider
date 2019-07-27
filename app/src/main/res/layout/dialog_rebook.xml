@@ -23,7 +23,7 @@
     <RelativeLayout
         android:id="@+id/linearMain"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_300sdp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tvRebook"
         android:orientation="vertical"
         android:padding="@dimen/_10sdp">
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="Jerry Cool"
+                android:text=""
                 android:textSize="@dimen/_13sdp" />
 
         </RelativeLayout>
@@ -65,19 +65,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="Your Rating"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Rating"
                 android:textColor="#000"
                 android:textSize="@dimen/_13sdp" />
 
 
-            <TextView
-                android:id="@+id/tvRating"
+            <RatingBar
+
+
+                android:id="@+id/ratingBarRebook"
+                style="?android:attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="Jerry Cool"
-                android:textSize="@dimen/_13sdp" />
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 
@@ -103,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="Jerry Cool"
+                android:text=""
                 android:textSize="@dimen/_13sdp" />
 
         </RelativeLayout>
@@ -117,10 +118,11 @@
             android:layout_marginTop="@dimen/_15sdp">
 
             <TextView
+                android:id="@+id/tvcleaning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Clearing type"
+                android:text="Cleaning type"
                 android:textColor="#000"
                 android:textSize="@dimen/_13sdp" />
 
@@ -130,7 +132,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="Jerry Cool"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_toRightOf="@+id/tvcleaning"
+                android:text="ggggggg"
                 android:textSize="@dimen/_13sdp" />
 
         </RelativeLayout>
@@ -140,15 +144,51 @@
             android:id="@+id/tvRebookThisCleaningJobs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/time_layout"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginRight="@dimen/_40sdp"
             android:background="@drawable/continue_btn_background"
             android:gravity="center"
-            android:text="Rebook this cleaning jobs"
-            android:textColor="#fff" />
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Rebook this provider"
+            android:textColor="#fff"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:id="@+id/time_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/relativeCleaningType"
+            android:layout_marginTop="@dimen/_20sdp">
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_bg"
+                android:text="20/02/2019"/>
+
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/layout_bg"
+                android:text="20/02/2019"/>
+
+        </LinearLayout>
+
 
 
     </RelativeLayout>

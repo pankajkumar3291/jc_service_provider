@@ -36,11 +36,8 @@ import am.appwise.components.ni.NoInternetDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityTermsConditions extends AppCompatActivity {
-
-
     private TextView tvDescription, tvCheckOne, tvCheckTwo, tvCheckThree, tvCheckFour;
     private CheckBox checkBoxOne, checkBoxTwo, checkBoxThree, checkBoxFour;
-
     private ImageView backarr;
     private NoInternetDialog noInternetDialog;
 
@@ -48,17 +45,12 @@ public class ActivityTermsConditions extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms_conditions);
-
         noInternetDialog = new NoInternetDialog.Builder(this).build();
-
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivityTermsConditions.this, R.color.statusBarColor));
-
         findingIdsHere();
         termsAndConditionsCases();
         dataCombinationPolicyCases();
         phoneNumberVerificationCases();
-
-
     }
 
 
@@ -66,17 +58,12 @@ public class ActivityTermsConditions extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         noInternetDialog.onDestroy();
     }
-
     private void phoneNumberVerificationCases() {
-
 
         String text = "Phone number verification, this will always result in data";
 

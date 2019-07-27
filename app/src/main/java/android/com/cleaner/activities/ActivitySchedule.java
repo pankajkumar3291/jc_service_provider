@@ -1,8 +1,12 @@
 package android.com.cleaner.activities;
 
+import android.app.AlertDialog;
 import android.com.cleaner.R;
 import android.com.cleaner.adapters.DailyAdapter;
 import android.com.cleaner.adapters.WeeklyAdapter;
+import android.com.cleaner.apiResponses.weeklyJobScheduled.AllWorkingDays;
+import android.com.cleaner.httpRetrofit.HttpModule;
+import android.com.cleaner.interfaces.ClickListnerForWeeklyJobScheduled;
 import android.com.cleaner.models.Time;
 import android.content.Context;
 import android.content.Intent;
@@ -19,19 +23,26 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeInfoDialog;
+import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import am.appwise.components.ni.NoInternetDialog;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class ActivitySchedule extends AppCompatActivity implements View.OnClickListener {
+public class ActivitySchedule extends AppCompatActivity implements View.OnClickListener { // , ClickListnerForWeeklyJobScheduled
 
 
     public RecyclerView recyclerViewDaily, recyclerViewWeekly, recyclerViewMonthly;
@@ -44,6 +55,17 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
     private Context mCtx;
 
     private NoInternetDialog noInternetDialog;
+    private AlertDialog alertDialog;
+    private AlertDialog.Builder alertDialogBuilder;
+
+
+    private TextView select_zipcode;
+    ArrayList<String> items = new ArrayList<>();
+    SpinnerDialog spinnerDialog;
+
+
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    public ClickListnerForWeeklyJobScheduled clickListnerForWeeklyJobScheduled;
 
 
     @Override
@@ -53,6 +75,8 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
 
         noInternetDialog = new NoInternetDialog.Builder(this).build();
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivitySchedule.this, R.color.statusBarColor));
+
+//        clickListnerForWeeklyJobScheduled = this;
 
         findingIdsHere();
         eventsListenerHere();
@@ -74,14 +98,12 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
 
 
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
-
         performOperationsHere();
-
     }
 
-    private void checkBoxColorCheckedUnchecked() {
+    private void checkBoxColorCheckedUnchecked(){
 
         ColorStateList colorStateList = new ColorStateList(
                 new int[][]{
@@ -102,11 +124,8 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
     }
 
     private void eventsListenerHere() {
-
         tvContinueBtn.setOnClickListener(this);
         backArrowImage.setOnClickListener(this);
-
-
     }
 
     private void performOperationsHere() {
@@ -119,14 +138,17 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
 
                 if (checkDaily.isChecked()) {
 
-                    checkDaily.setTextColor(Color.parseColor("#FF182391"));
-                    checkMonthly.setTextColor(Color.parseColor("#FFFFFF"));
-                    checkWeekly.setTextColor(Color.parseColor("#FFFFFF"));
-                    recyclerViewDaily.setVisibility(View.VISIBLE);
-                    checkWeekly.setChecked(false);
-                    checkMonthly.setChecked(false);
+                    selectYourDailyScheduling();
 
-                    callDailyAdapterHere();
+
+//                    checkDaily.setTextColor(Color.parseColor("#FF182391"));
+//                    checkMonthly.setTextColor(Color.parseColor("#FFFFFF"));
+//                    checkWeekly.setTextColor(Color.parseColor("#FFFFFF"));
+//                    recyclerViewDaily.setVisibility(View.VISIBLE);
+//                    checkWeekly.setChecked(false);
+//                    checkMonthly.setChecked(false);
+//
+//                    callDailyAdapterHere();
 
                 } else {
                     recyclerViewDaily.setVisibility(View.GONE);
@@ -140,11 +162,9 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
         checkWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                 checkBoxColorCheckedUnchecked();
-
                 if (checkWeekly.isChecked()) {
-
+                    selectYourWeeklyJobScheduling();
                     checkWeekly.setTextColor(Color.parseColor("#FF182391"));
                     checkDaily.setTextColor(Color.parseColor("#FFFFFF"));
                     recyclerViewWeekly.setVisibility(View.VISIBLE);
@@ -153,11 +173,7 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
 
                     checkDaily.setChecked(false);
                     checkMonthly.setChecked(false);
-
-
-                    callWeeklyAdapterHere();
-
-
+//                    callWeeklyAdapterHere();
                 } else {
                     recyclerViewWeekly.setVisibility(View.GONE);
                     recyclerViewDaily.setVisibility(View.GONE);
@@ -176,6 +192,7 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
                 checkBoxColorCheckedUnchecked();
 
                 if (checkMonthly.isChecked()) {
+//                    awesomeDialogForInfo();
 
                     checkMonthly.setTextColor(Color.parseColor("#FF182391"));
                     checkWeekly.setTextColor(Color.parseColor("#FFFFFF"));
@@ -184,7 +201,7 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
                     recyclerViewMonthly.setVisibility(View.VISIBLE);
                     recyclerViewDaily.setVisibility(View.GONE);
                     recyclerViewWeekly.setVisibility(View.GONE);
-                    TastyToast.makeText(ActivitySchedule.this, "checkMonthly.isChecked", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+//                    TastyToast.makeText(ActivitySchedule.this, "checkMonthly.isChecked", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
 
                     checkDaily.setChecked(false);
                     checkWeekly.setChecked(false);
@@ -205,46 +222,102 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void callWeeklyAdapterHere() {
+    private void awesomeDialogForInfo() {
 
 
-        timeList = new ArrayList<>();
+        new AwesomeInfoDialog(this)
+                .setTitle("Great")
+                .setMessage("Click continue to schedule your monthly job")
+                .setColoredCircle(R.color.dialogInfoBackgroundColor)
+                .setDialogIconAndColor(R.drawable.ic_dialog_info, R.color.white)
+                .setCancelable(true)
+                .setPositiveButtonText("Ok")
+                .setPositiveButtonbackgroundColor(R.color.dialogInfoBackgroundColor)
+                .setPositiveButtonTextColor(R.color.white)
+//                .setNeutralButtonText(getString(R.string.dialog_neutral_button))
+//                .setNeutralButtonbackgroundColor(R.color.dialogInfoBackgroundColor)
+//                .setNeutralButtonTextColor(R.color.white)
+//                .setNegativeButtonText(getString(R.string.dialog_no_button))
+//                .setNegativeButtonbackgroundColor(R.color.dialogInfoBackgroundColor)
+//                .setNegativeButtonTextColor(R.color.white)
+                .setPositiveButtonClick(new Closure() {
+                    @Override
+                    public void exec() {
+                        //click
+                    }
+                })
+//                .setNeutralButtonClick(new Closure() {
+//                    @Override
+//                    public void exec() {
+//                        //click
+//                    }
+//                })
+//                .setNegativeButtonClick(new Closure() {
+//                    @Override
+//                    public void exec() {
+//                        //click
+//                    }
+//                })
+                .show();
 
-        timeList.add(new Time("Monday", "10:00AM"));
-        timeList.add(new Time("Tuesday", "11:00AM"));
-        timeList.add(new Time("Wednesday", "12:00PM"));
-        timeList.add(new Time("Thursday", "1:00PM"));
-        timeList.add(new Time("Friday", "2:00PM"));
-        timeList.add(new Time("Satarday", "3:00PM"));
-        timeList.add(new Time("Sunday", "Enjoy..!  we don't work"));
+    }
 
+    private void selectYourWeeklyJobScheduling() {
 
-        WeeklyAdapter weeklyAdapter = new WeeklyAdapter(ActivitySchedule.this, timeList);
-        recyclerViewWeekly.setHasFixedSize(true);
-        recyclerViewWeekly.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewWeekly.setAdapter(weeklyAdapter);
+        Intent intent = new Intent(ActivitySchedule.this, ActivityWeeklyJobScheduling.class);
+        startActivity(intent);
+        finish();
 
 
     }
 
-    private void callDailyAdapterHere() {
+    private void selectYourDailyScheduling() {
+        Intent intent = new Intent(ActivitySchedule.this, ActivityDailyJobSchedule.class);
+        startActivity(intent);
+        finish();
+    }
 
-        timeList = new ArrayList<>();
 
-        timeList.add(new Time("", "10AM"));
-        timeList.add(new Time("", "10AM"));
-        timeList.add(new Time("", "10AM"));
-        timeList.add(new Time("", "10AM"));
-        timeList.add(new Time("", "10AM"));
-        timeList.add(new Time("", "10AM"));
-        timeList.add(new Time("", "10AM"));
-        timeList.add(new Time("", "10AM"));
-        timeList.add(new Time("", "10AM"));
+    private void callWeeklyAdapterHere() {
 
-        DailyAdapter adapter = new DailyAdapter(ActivitySchedule.this, timeList);
-        recyclerViewDaily.setHasFixedSize(true);
-        recyclerViewDaily.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewDaily.setAdapter(adapter);
+
+        compositeDisposable.add(HttpModule.provideRepositoryService().allWorkingDays().
+                subscribeOn(io.reactivex.schedulers.Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Consumer<AllWorkingDays>() {
+
+                    @Override
+                    public void accept(AllWorkingDays allWorkingDays) throws Exception {
+
+
+                        if (allWorkingDays != null && allWorkingDays.getIsSuccess()) {
+
+                            TastyToast.makeText(ActivitySchedule.this, allWorkingDays.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+
+//                            WeeklyAdapter weeklyAdapter = new WeeklyAdapter(ActivitySchedule.this, allWorkingDays.getPayload(), clickListnerForWeeklyJobScheduled);
+                            recyclerViewWeekly.setHasFixedSize(true);
+                            recyclerViewWeekly.setLayoutManager(new LinearLayoutManager(ActivitySchedule.this));
+//                            recyclerViewWeekly.setAdapter(weeklyAdapter);
+
+
+                        } else {
+                            TastyToast.makeText(ActivitySchedule.this, Objects.requireNonNull(allWorkingDays).getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+                        }
+
+                    }
+
+                }, new Consumer<Throwable>() {
+
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+
+                        TastyToast.makeText(ActivitySchedule.this, "Something went wrong", TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+
+                    }
+
+
+                }));
 
 
     }
@@ -272,12 +345,13 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
 
 
         switch (v.getId()) {
+
             case R.id.tvContinueBtn:
 
                 if (checkMonthly.isChecked() && !checkDaily.isChecked() && !checkWeekly.isChecked()) {
 
-                    Intent intent = new Intent(ActivitySchedule.this, ActivityScheduleMonthly.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(ActivitySchedule.this, ActivityScheduleMonthly.class);
+//                    startActivity(intent);
                 }
 //                else {
 //
@@ -296,4 +370,15 @@ public class ActivitySchedule extends AppCompatActivity implements View.OnClickL
 
 
     }
+
+
+//    @Override
+//    public void weeklyJobScheduledAdapterItemClicked(List<String> stringslist) {
+//
+//        System.out.println("ActivitySchedule.weeklyJobScheduledAdapterItemClicked " + stringslist);
+//
+//
+//    }
+
+
 }

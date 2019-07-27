@@ -53,9 +53,7 @@
             android:layout_below="@+id/linearBookCleanerbtn"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-
-            >
+            android:layout_marginTop="@dimen/_10sdp">
 
             <TextView
                 android:layout_width="match_parent"

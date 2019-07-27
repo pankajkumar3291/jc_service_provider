@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.orhanobut.hawk.Hawk;
+
 import java.util.Locale;
 
 import am.appwise.components.ni.NoInternetDialog;
@@ -30,7 +32,7 @@ public class ActivitySelectLanguages extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_select_languages);
 
         noInternetDialog = new NoInternetDialog.Builder(this).build();
-
+        Hawk.init(this).build();
         changingStatusBarColorHere();
         findingIdsHere();
         eventsListner();
@@ -52,19 +54,13 @@ public class ActivitySelectLanguages extends AppCompatActivity implements View.O
 
 
     private void eventsListner() {
-
         btnEnglish.setOnClickListener(this);
         btnSpanish.setOnClickListener(this);
-
     }
 
     private void findingIdsHere() {
-
-
         btnEnglish = findViewById(R.id.btnEnglish);
         btnSpanish = findViewById(R.id.btnSpanish);
-
-
     }
 
 
@@ -76,26 +72,19 @@ public class ActivitySelectLanguages extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
-
-
         switch (v.getId()) {
-
-
             case R.id.btnEnglish:
-
+                Hawk.put("spanish",false);
                 makingAppLanguagesLocalizeForEnglish();
-
                 Intent intentEnglish = new Intent(ActivitySelectLanguages.this, ActivityMain.class);
+                intentEnglish.putExtra("lang","en");
                 startActivity(intentEnglish);
-
                 break;
-
-
             case R.id.btnSpanish:
-
+                Hawk.put("spanish",true);
                 makingAppLanguagesLocalizeForSpanish();
-
                 Intent intentSpanish = new Intent(ActivitySelectLanguages.this, ActivityMain.class);
+                intentSpanish.putExtra("lang","es");
                 startActivity(intentSpanish);
 
                 break;

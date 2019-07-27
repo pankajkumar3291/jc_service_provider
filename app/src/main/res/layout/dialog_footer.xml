@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="Company info"
+            android:text="@string/company_info"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />
 
@@ -28,7 +28,7 @@
             android:layout_below="@+id/tvCompanyInfo"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Offered services"
+            android:text="@string/offered_services"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />
 
@@ -39,7 +39,7 @@
             android:layout_below="@+id/tvOffredServices"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="FAQ"
+            android:text="@string/faq"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />
 
@@ -50,7 +50,7 @@
             android:layout_below="@+id/tvFAQ"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Terms and conditions"
+            android:text="@string/terms_and_conditions"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />
 
@@ -62,7 +62,7 @@
             android:layout_below="@+id/tvTermsAndConditions"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Privacy policy"
+            android:text="@string/privacy_policy"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />
 
@@ -74,7 +74,7 @@
             android:layout_below="@+id/tvPrivacyPolicy"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_12sdp"
-            android:text="Apply to work with us!"
+            android:text="@string/apply_to_work_with_us"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp" />
 

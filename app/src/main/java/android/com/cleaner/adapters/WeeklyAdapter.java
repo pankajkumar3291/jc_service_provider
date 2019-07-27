@@ -1,8 +1,11 @@
 package android.com.cleaner.adapters;
 
+import android.app.TimePickerDialog;
 import android.com.cleaner.R;
-import android.com.cleaner.activities.ActivitySchedule;
-import android.com.cleaner.models.Time;
+import android.com.cleaner.activities.ActivityWeeklyJobScheduling;
+import android.com.cleaner.apiResponses.weeklyJobScheduled.Payload;
+import android.com.cleaner.interfaces.ClickListnerForWeeklyJobScheduled;
+import android.com.cleaner.requestModelsForWeeklyJob.DateTime;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -19,22 +22,35 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.orhanobut.hawk.Hawk;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyAdapter.WeeklyViewHolder> {
 
 
     private Context mCtx;
-    List<Time> List;
+    List<Payload> List;
     View view;
+    private int mHour, mMinute;
 
-    public WeeklyAdapter(ActivitySchedule activitySchedule, List<Time> timeList) {
+    private ClickListnerForWeeklyJobScheduled clickListnerForWeeklyJobScheduled;
+    private ArrayList<DateTime> integerArrayListForIds = new ArrayList<>();
+    private DateTime dateTime;
+    private String selectedTime;
 
+
+    public WeeklyAdapter(ActivityWeeklyJobScheduling activitySchedule, java.util.List<Payload> timeList, ClickListnerForWeeklyJobScheduled clickListnerForWeeklyJobScheduled) {
 
         this.mCtx = activitySchedule;
         this.List = timeList;
+        this.clickListnerForWeeklyJobScheduled = clickListnerForWeeklyJobScheduled;
+
 
     }
 
@@ -48,37 +64,64 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyAdapter.WeeklyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final WeeklyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final WeeklyViewHolder holder, final int position) {
 
-        Time timeWeekly = List.get(position);
-        holder.checkWeekly.setText(timeWeekly.getName());
-        holder.tvWeekly.setText(timeWeekly.getTime());
+        final Payload timeWeekly = List.get(position);
+        holder.checkWeekly.setText(timeWeekly.getDay());
+
+
+        holder.tvWeekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(mCtx,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                                holder.tvWeekly.setText(hourOfDay + ":" + minute);
+                                selectedTime = hourOfDay + ":" + minute;
+
+                                dateTime = new DateTime();
+                                dateTime.setDay(timeWeekly.getId());
+                                dateTime.setTime(selectedTime);
+
+                                integerArrayListForIds.add(dateTime);
+                                clickListnerForWeeklyJobScheduled.weeklyJobScheduledAdapterItemClicked(integerArrayListForIds, position);
+                                Hawk.put("TIME", hourOfDay + ":" + minute);
+
+
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+
+
+            }
+        });
 
 
         holder.checkWeekly.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
 
-                if (holder.checkWeekly.isChecked()) {
-
-
-                    Toast.makeText(view.getContext(), "True", Toast.LENGTH_SHORT).show();
+                if (holder.checkWeekly.isChecked()){
                     checkBoxColorCheckedUnchecked(holder);
-                    holder.checkWeekly.setTextColor(Color.parseColor("#303F9F"));
-                    holder.tvWeekly.setTextColor(Color.parseColor("#303F9F"));
-
-                    // Changing drawable left color
-                    setTextViewDrawableColor(holder.tvWeekly, R.color.english_btnColor);
-
+                    holder.tvWeekly.setVisibility(View.VISIBLE);
 
                 } else {
 
-
-                    Toast.makeText(view.getContext(), "False", Toast.LENGTH_SHORT).show();
-                    holder.checkWeekly.setTextColor(Color.parseColor("#FFFFFF"));
-                    holder.tvWeekly.setTextColor(Color.parseColor("#FFFFFF"));
-                    setTextViewDrawableColor(holder.tvWeekly, R.color.white);
+                    integerArrayListForIds.remove(dateTime);
+                    clickListnerForWeeklyJobScheduled.weeklyJobScheduledAdapterItemClicked(integerArrayListForIds, position);
+                    holder.tvWeekly.setVisibility(View.GONE);
                 }
+
+
             }
         });
 
@@ -134,5 +177,7 @@ public class WeeklyAdapter extends RecyclerView.Adapter<WeeklyAdapter.WeeklyView
 
 
         }
+
+
     }
 }

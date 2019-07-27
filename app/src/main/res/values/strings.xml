@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">Cleaner(Customer)</string>
 
-
     <!--just for testing ?-->
-
-
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
     <string name="settings">Settings</string>
@@ -13,20 +10,16 @@
     <string name="invite_friend">Invite Friend</string>
     <string name="address_menu">Profile &amp; Address</string>
     <string name="upcoming_appointments">Upcoming Appointments</string>
-
     <string name="contact_support">Contact Support</string>
-
     <string name="completed_appointments">Completed Appointments</string>
-
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-
+    <string name="cancel_appointments">Canceled Appointments</string>
+    <string name="drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="drawer_close" translatable="false">Close navigation drawer</string>
     <string name="action_show">Show</string>
-
     <string name="snackbar_text">Snackbar Text</string>
     <string name="some_text">Some Text</string>
 
-    <string name="loremipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    <string name="loremipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         Fusce lacus nisl, venenatis accumsan fermentum sed, auctor ut magna. Integer ante erat,
         fermentum id feugiat quis, tristique eu tortor. Cras vel sodales diam, ut imperdiet urna.
         Proin et nisl vitae ante scelerisque commodo ornare vel tortor. In eget viverra nisl, eu pellentesque nisi.
@@ -38,8 +31,6 @@
         Aliquam facilisis maximus enim eget sagittis. Vestibulum tincidunt dolor sit amet interdum porta. Fusce eu odio sem.
         Proin non condimentum elit. Curabitur elit turpis, hendrerit eget velit et,
         sagittis pellentesque felis. Donec in euismod nibh. </string>
-
-
     <string name="sign_in">SIGN IN</string>
     <string name="forget_password">Forget Password..?</string>
     <string name="sign_in_with">Sign in with</string>
@@ -47,13 +38,9 @@
     <string name="create_one">Create One</string>
     <string name="user_name">User Name</string>
     <string name="phone_email">PHONE/EMAIL</string>
-
-
     <string name="enter_your_location">Select a saved address</string>
     <string name="types_of_services">Types of services</string>
     <string name="price">Price</string>
-
-
     <string name="your_string_here"><u>Terms and Conditions</u> and <u>Special</u></string>
 
 
@@ -63,29 +50,22 @@
     <string name="email">Email</string>
     <string name="already_have_account">Already have an account.?</string>
     <string name="signin">Sign In</string>
-
-
     <string name="please_fill_the_fields">Please fill the above fields</string>
     <string name="make_sure_email_must_be_in_format">Make sure emial must be in format</string>
     <string name="password_must_be_like">Password must be like 1aA@123456</string>
     <string name="atleast6_charatcer">At least 6 characters</string>
-
     <string name="book_a_cleaner">Book a cleaner</string>
     <string name="rebook">Rebook a previous cleaner </string>
     <string name="create_an_automatic_schedule">Create an automatic cleaning schedule</string>
     <string name="user_name_header">Shahzeb</string>
     <string name="emal_id_header">Shahzeb@gmail.com</string>
-
-
     <string name="continuee">Continue</string>
-
-
     <string name="name">NAME</string>
     <string name="address">ADDRESS</string>
     <string name="email_">E-MAIL</string>
     <string name="city_">CITY</string>
     <string name="zip_code">ZIP CODE</string>
-    <string name="congratulations_your_order_is_complete">Congratulations \n your order is complete</string>
+    <string name="congratulations_your_order_is_complete" translatable="false">Congratulations \n your order is complete</string>
     <string name="a_cleaner_will_be_sent_to">A cleaner will be sent to :</string>
     <string name="address_">Address</string>
     <string name="view_order_details">View Order Details</string>
@@ -103,12 +83,58 @@
     <string name="forget_password_">Forget password ?</string>
     <string name="don_t_have_an_account_create_one">Don\'t have an account ? Create one</string>
     <string name="phone_number">PHONE NUMBER</string>
-
-
-    <string name="font_name_fontawesome">sourcesanspro_semiboldIt.otf</string>
+    <string name="font_name_fontawesome" translatable="false">sourcesanspro_semiboldIt.otf</string>
     <string name="terms_conditions">Terms &amp; Conditions</string>
     <string name="interior_painting">\"INTERIOR PAINTING\"</string>
     <string name="password">PASSWORD</string>
-
-
+    <string name="select_states">Select States</string>
+    <string name="select_cities">Select Cities</string>
+    <string name="select_zipcode">Select Zipcode</string>
+    <string name="fri">Vie</string>
+    <string name="friday">Vie</string>
+    <string name="sat">sat</string>
+    <string name="saturday">saturday</string>
+    <string name="six_monthly">six_monthly</string>
+    <string name="sun">sun</string>
+    <string name="company_info">Company info</string>
+    <string name="offered_services">Offered services</string>
+    <string name="faq">FAQ</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="apply_to_work_with_us">Apply to work with us!</string>
+    <string name="book_a_cleaner1">BOOK A CLEANER</string>
+    <string name="enter_zip_code">Enter zip code</string>
+    <string name="enter_address">Enter address</string>
+    <string name="pick_your_date">Pick your date</string>
+    <string name="pick_your_time">Pick your time</string>
+    <string name="submit">Submit</string>
+    <string name="previous_jobs">PREVIOUS JOBS</string>
+    <string name="rebook1">Rebook</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="send_a_referal_link_to_your_friend_via_sms_email_whatsapp">Send a referal link to your friend via SMS/ Email/ Whatsapp</string>
+    <string name="referral_code">REFERRAL CODE</string>
+    <string name="refer_now">Refer Now</string>
+    <string name="daily_jobs_schedule">Daily jobs schedule</string>
+    <string name="select_your_time">Select your time</string>
+    <string name="your_time_is">Your time is:</string>
+    <string name="select_your_zipcode">Select your zipcode</string>
+    <string name="enter_your_address">Enter your address</string>
+    <string name="submit1">Submit</string>
+    <string name="weekly_job_schedule">Weekly job schedule</string>
+    <string name="change_password">CHANGE PASSWORD</string>
+    <string name="please_enter_your_new_password">Please enter your new password</string>
+    <string name="old_password">OLD PASSWORD</string>
+    <string name="new_password">NEW PASSWORD</string>
+    <string name="confirm_new_password">CONFIRM NEW PASSWORD</string>
+    <string name="save">SAVE</string>
+    <string name="logout">Logout</string>
+    <string name="logging_out">Logging out</string>
+    <string name="do_you_really_want_to_logout">Do you really want to logout</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="success">SUCCESS</string>
+    <string name="this_is_the_default_text">This is the default text</string>
+    <string name="ok">Ok</string>
 </resources>
