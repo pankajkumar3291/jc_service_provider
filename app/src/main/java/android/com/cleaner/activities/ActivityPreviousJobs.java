@@ -1,5 +1,4 @@
 package android.com.cleaner.activities;
-
 import android.com.cleaner.R;
 import android.com.cleaner.adapters.PreviousJobsAdapter;
 import android.com.cleaner.apiResponses.allPreviousJobs.AllPreviousJobs;
@@ -17,7 +16,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -31,50 +31,35 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 public class ActivityPreviousJobs extends AppCompatActivity implements ItemClickListenerTwo {
-
-
     private RecyclerView recyclerViewPreviousJobs;
     private Context context;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
-
+    private TextView tvNoData;
     List<PreviousJobs> jobsList;
-
     RelativeLayout reMainRelative;
     private ImageView backarr;
-
     private NoInternetDialog noInternetDialog;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_jobs);
         noInternetDialog = new NoInternetDialog.Builder(this).build();
-
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivityPreviousJobs.this, R.color.statusBarColor));
         context = this;
         findingIdsHere();
         callingAdapterHere();
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         noInternetDialog.onDestroy();
     }
-
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
-
     private void callingAdapterHere() {
-
-
 //        jobsList = new ArrayList<>();
 //
 //        jobsList.add(new PreviousJobs("Hell cleaning center"));
@@ -92,80 +77,50 @@ public class ActivityPreviousJobs extends AppCompatActivity implements ItemClick
 //        recyclerViewPreviousJobs.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerViewPreviousJobs.setAdapter(previousJobsAdapter);
 //        previousJobsAdapter.setClickListener(this);
-
-
         compositeDisposable.add(HttpModule.provideRepositoryService().
-                allPreviousJobs(Hawk.get("spanish",false)?"es":"en",String.valueOf(Hawk.get("savedUserId"))).
+                allPreviousJobs(Hawk.get("spanish", false) ? "es" : "en", String.valueOf(Hawk.get("savedUserId"))).
                 subscribeOn(io.reactivex.schedulers.Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Consumer<AllPreviousJobs>() {
-
                     @Override
                     public void accept(AllPreviousJobs allPreviousJobs) throws Exception {
-
-
                         if (allPreviousJobs != null && allPreviousJobs.getIsSuccess()) {
                             PreviousJobsAdapter previousJobsAdapter = new PreviousJobsAdapter(context, allPreviousJobs.getPayload());
                             recyclerViewPreviousJobs.setHasFixedSize(true);
                             recyclerViewPreviousJobs.setLayoutManager(new LinearLayoutManager(ActivityPreviousJobs.this));
                             recyclerViewPreviousJobs.setAdapter(previousJobsAdapter);
                             previousJobsAdapter.setClickListener(ActivityPreviousJobs.this);
-
                         } else {
-
-                            TastyToast.makeText(ActivityPreviousJobs.this, Objects.requireNonNull(allPreviousJobs).getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
-
+                            tvNoData.setVisibility(View.VISIBLE);
+                            Toast.makeText(ActivityPreviousJobs.this, Objects.requireNonNull(allPreviousJobs).getMessage(), Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
-
                 }, new Consumer<Throwable>() {
-
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
-                        TastyToast.makeText(ActivityPreviousJobs.this, throwable.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
-
+                        tvNoData.setVisibility(View.VISIBLE);
+                        Toast.makeText(ActivityPreviousJobs.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
                 }));
-
-
     }
-
     private void findingIdsHere() {
-
         recyclerViewPreviousJobs = findViewById(R.id.recyclerViewPreviousJobs);
         reMainRelative = findViewById(R.id.reMainRelative);
+        tvNoData = findViewById(R.id.tvNoData);
         backarr = findViewById(R.id.backarr);
-
         backarr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
             }
         });
-
     }
-
-
     @Override
     public void onClick(View view, int position) {
-
 //        TastyToast.makeText(getApplicationContext(), "Clicking testing ", TastyToast.LENGTH_SHORT, TastyToast.CONFUSING).show();
-
         if (position == 0) {
-
         } else if (position == 1) {
-
         } else if (position == 2) {
-
         }
-
-
     }
-
-
 }

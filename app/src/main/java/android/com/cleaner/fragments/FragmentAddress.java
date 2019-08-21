@@ -3,6 +3,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.com.cleaner.R;
 import android.com.cleaner.activities.ActivitySignIn;
+import android.com.cleaner.activities.DashboardActivity;
 import android.com.cleaner.apiResponses.changePassword.ChangePassword;
 import android.com.cleaner.apiResponses.customerFullDetailsApis.CustomerFullDetails;
 import android.com.cleaner.apiResponses.customerFullDetailsApis.PayLoad;
@@ -13,6 +14,7 @@ import android.com.cleaner.apiResponses.getZipcodeList.ZipCodeList;
 import android.com.cleaner.apiResponses.updateCustomerProfile.UpdateCustomerProfile;
 import android.com.cleaner.apiResponses.updateProfile.GetProfile;
 import android.com.cleaner.httpRetrofit.HttpModule;
+import android.com.cleaner.models.UpdateImage;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -91,6 +93,7 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
     private String stateId, cityId, zipcodeId;
     private ArrayAdapter<String> dataAdapterForCities;
     private ArrayAdapter<String> dataAdapterForZipcodes;
+    private UpdateImage updateImage ;
     List<String> arrayCitiesName;
     ArrayList<String> arrayZipcodeNames;
     String nameCheck, addressCheck, phoneNumberCheck;
@@ -528,6 +531,11 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
             }
         }).show(Objects.requireNonNull(getActivity()));
     }
+
+    public void getImageUrl(String url){
+
+    }
+
     private void userProfilePicApi(final PickResult pickResult) {
         File file = new File(pickResult.getPath());
         final RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
@@ -544,6 +552,8 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
                     pickResult.getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos);
                     byte[] b = baos.toByteArray();
                     String temp = Base64.encodeToString(b, Base64.DEFAULT);
+                    String url=response.body().getPayLoad();
+                    ((DashboardActivity) getActivity()).updateImage(response.body().getPayLoad());
                     Hawk.put("TEMP", temp);
                     showTheDialogMessageForOk(Objects.requireNonNull(response.body()).getMessage());
                 } else {

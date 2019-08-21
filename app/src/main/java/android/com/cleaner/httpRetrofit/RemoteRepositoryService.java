@@ -200,6 +200,15 @@ public interface RemoteRepositoryService {
                                           @Field("provider_id") String provider_id,
                                           @Field("review") String review,
                                           @Field("comment") String comment);
+
+
+
+    @FormUrlEncoded
+    @POST("customer/CanceljobByCustomer")
+    Observable<AllPreviousJobs> cancelAppointmentByCustomer(@Field("language") String language,
+                                                @Field("Customer_id") String Customer_id);
+
+
     // REFERRAL CODE API 28
     @FormUrlEncoded
     @POST("customer/showReferralcode")
@@ -226,4 +235,8 @@ public interface RemoteRepositoryService {
     @POST("customer/ListOfCanceledJobsForCustomer/{language}")
     Call<GetCancelledAppointments> getCanelledAppointments(@Path("language")String language,
                                                            @Field("Customer_id") String customer_id);
+
+
+
+
 }

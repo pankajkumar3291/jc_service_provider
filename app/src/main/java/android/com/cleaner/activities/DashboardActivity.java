@@ -15,6 +15,7 @@ import android.com.cleaner.fragments.HomeFragment;
 import android.com.cleaner.fragments.ScheduleFragment;
 import android.com.cleaner.fragments.SettingsFragment;
 import android.com.cleaner.httpRetrofit.HttpModule;
+import android.com.cleaner.models.UpdateImage;
 import android.com.cleaner.sharedPrefrence.SharedPrefsHelper;
 import android.com.cleaner.utils.AppConstant;
 import android.content.Context;
@@ -370,6 +371,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
@@ -405,5 +407,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         } else {
             return false;
         }
+    }
+    public void updateImage(String url) {
+//        Hawk.get("cImg")
+
+  Hawk.put("cImg",url);
+        Picasso.get().load(url).resize(100, 100).error(R.drawable.ic_user).into(cleanearsProfile);
     }
 }

@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.orhanobut.hawk.Hawk;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -37,6 +38,7 @@ public class FragmentUpcomingAppointments extends Fragment {
     private RecyclerView recyclerView;
     private NoInternetDialog noInternetDialog;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private TextView tvNoData;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,9 +69,11 @@ public class FragmentUpcomingAppointments extends Fragment {
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                             adapter = new UpcomingAppointmentsAdapter(getActivity(), customerCurrentJobs.getPayload());
                             recyclerView.setAdapter(adapter);
-
+                            recyclerView.setVisibility(View.VISIBLE);
+                            tvNoData.setVisibility(View.GONE);
                         } else {
-
+                            recyclerView.setVisibility(View.GONE);
+                            tvNoData.setVisibility(View.VISIBLE);
                             TastyToast.makeText(getActivity(), customerCurrentJobs.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                         }
 
@@ -80,12 +84,11 @@ public class FragmentUpcomingAppointments extends Fragment {
 
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        recyclerView.setVisibility(View.GONE);
+                        tvNoData.setVisibility(View.VISIBLE);
                         System.out.println("FragmentUpcomingAppointments.accept " + throwable.toString());
 
                     }
-
-
                 }));
 
 
@@ -119,6 +122,7 @@ public class FragmentUpcomingAppointments extends Fragment {
 
 
     private void findingIdsHere(View view) {
+tvNoData=view.findViewById(R.id.no_data);
 
         recyclerView = view.findViewById(R.id.recyclerView);
     }

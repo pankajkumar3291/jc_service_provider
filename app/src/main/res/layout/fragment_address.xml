@@ -103,6 +103,8 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:ems="10"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:singleLine="true"

@@ -134,29 +134,29 @@ public class ActivityBookCleaner extends AppCompatActivity {
                 }
             }
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable editable){
             }
         });
     }
     @Override
-    public void onDestroy() {
+    public void onDestroy(){
         super.onDestroy();
         noInternetDialog.onDestroy();
         compositeDisposable.dispose();
     }
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
     // MARK: GOOGLE PLACES SEARCH
-    private void googlePlacesApisGoesHere(TextView tvBookCleanerSubmit) {
+    private void googlePlacesApisGoesHere(TextView tvBookCleanerSubmit){
 //        http://velmm.com/google-places-autocomplete-android-example/
         placeAutocompleteFragment = (PlaceAutocompleteFragment) this.getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()/*.setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)*/.build();
         placeAutocompleteFragment.setFilter(autocompleteFilter);
-        placeAutocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+        placeAutocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener(){
             @Override
-            public void onPlaceSelected(Place place) {
+            public void onPlaceSelected(Place place){
                 latlngFromAddress(place);
                 selectedPlace = place.getName().toString();
             }
@@ -167,18 +167,18 @@ public class ActivityBookCleaner extends AppCompatActivity {
             }
         });
     }
-    private void bookACleanerApiGoesHere() {
+    private void bookACleanerApiGoesHere(){
         compositeDisposable.add(HttpModule.provideRepositoryService().
                 bookCleanerAPI(Hawk.get("savedUserId", ""), edZipcode.getText().toString(), Hawk.get("DATE", ""), Hawk.get("TIME", ""), csv, edAddress.getText().toString()).
                 subscribeOn(io.reactivex.schedulers.Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Consumer<BookCleaner>() {
+                subscribe(new Consumer<BookCleaner>(){
                     @Override
-                    public void accept(BookCleaner bookCleaner) throws Exception {
-                        if (bookCleaner != null && bookCleaner.getIsSuccess()) {
+                    public void accept(BookCleaner bookCleaner) throws Exception{
+                        if (bookCleaner != null && bookCleaner.getIsSuccess()){
                             new Handler().postDelayed(new Runnable() {
                                 @Override
-                                public void run() {
+                                public void run(){
                                     mProgressDialog.dismiss();
 //                                    Intent intent = new Intent(ActivityBookCleaner.this, ActivityCleanerProfile.class);
 //                                    startActivity(intent);
@@ -222,7 +222,7 @@ public class ActivityBookCleaner extends AppCompatActivity {
             }
         });
     }
-    private void showTheDialogMessageForOkay(String message) {
+    private void showTheDialogMessageForOkay(String message){
         LayoutInflater li = LayoutInflater.from(this);
         View dialogView = li.inflate(R.layout.dialog_show_for_message_ok, null);
         findingIdsForOk(dialogView, message);

@@ -30,15 +30,16 @@ public class FragmentCancelAppointments extends Fragment {
 
     private View mView;
     private Context mContext;
+    private TextView noData;
     private  RecyclerView recCancelledList;
     private List<EOCancelledPayload> cancelledList=new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragmen_cancelled_appointments_layout, container, false);
-
         Hawk.init(getContext()).build();
         recCancelledList=mView.findViewById(R.id.rec_cancelled_list);
+        noData=mView.findViewById(R.id.no_data);
         callApi();
 //        findingAboutIdsHere(view);
 //        settingValuesHere(view);
@@ -57,15 +58,31 @@ public class FragmentCancelAppointments extends Fragment {
                          recCancelledList.setLayoutManager(new LinearLayoutManager(getContext()));
                          recCancelledList.setHasFixedSize(true);
                          recCancelledList.setAdapter(new CancelAppointmentAdapter(cancelledList,getContext()));
+                         noData.setVisibility(View.GONE);
+                         recCancelledList.setVisibility(View.VISIBLE);
                      }
+                     else
+                     {
+                         noData.setVisibility(View.VISIBLE);
+                         recCancelledList.setVisibility(View.GONE);
+                     }
+                    }
+                    else
+                    {
+                        noData.setVisibility(View.VISIBLE);
+                        recCancelledList.setVisibility(View.GONE);
                     }
                 }
                 @Override
                 public void onFailure(Call<GetCancelledAppointments> call, Throwable t) {
+                    noData.setVisibility(View.VISIBLE);
+                    recCancelledList.setVisibility(View.GONE);
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
+            noData.setVisibility(View.VISIBLE);
+            recCancelledList.setVisibility(View.GONE);
         }
     }
     //todo ===================================== Adapter class =====================================

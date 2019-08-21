@@ -15,10 +15,10 @@
 
         <ImageView
             android:id="@+id/backarr"
-            android:tint="@color/colorWhite"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/back_arrow" />
+            android:src="@drawable/back_arrow"
+            android:tint="@color/colorWhite" />
 
 
         <TextView
@@ -30,6 +30,19 @@
             android:textSize="@dimen/_15ssp"
             android:textStyle="bold" />
     </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tvNoData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="No data available"
+        android:textSize="@dimen/_15ssp"
+        android:visibility="gone" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewPreviousJobs"

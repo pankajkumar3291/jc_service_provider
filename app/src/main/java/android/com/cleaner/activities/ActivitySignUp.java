@@ -473,7 +473,7 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
         String firebaseToekn = FirebaseInstanceId.getInstance().getToken();
 
 
-        HttpModule.provideRepositoryService().signUpAPI(edName.getText().toString(), "SmartItVentures", edEmail.getText().toString(), edPassword.getText().toString(), edPhoneNumber.getText().toString(), edAddress.getText().toString(), "A", "cu", Integer.parseInt(stateIdHolder), cityIdHolder, Integer.parseInt(zipCodeIdHolder), firebaseToekn).enqueue(new Callback<SignUp>() {
+        HttpModule.provideRepositoryService().signUpAPI(edName.getText().toString(), "", edEmail.getText().toString(), edPassword.getText().toString(), edPhoneNumber.getText().toString(), edAddress.getText().toString(), "A", "cu", Integer.parseInt(stateIdHolder), cityIdHolder, Integer.parseInt(zipCodeIdHolder), firebaseToekn).enqueue(new Callback<SignUp>() {
             @Override
             public void onResponse(Call<SignUp> call, Response<SignUp> response) {
 
@@ -590,7 +590,6 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
             if (view instanceof EditText) {  // Display error messages
 
                 ((EditText) view).setError(message);
-
             } else {
 //                Toast.makeText(ActivitySignUp.this, message, Toast.LENGTH_LONG).show();
             }
