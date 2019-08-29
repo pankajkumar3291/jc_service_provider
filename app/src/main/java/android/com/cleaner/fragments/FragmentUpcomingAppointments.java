@@ -1,5 +1,4 @@
 package android.com.cleaner.fragments;
-
 import android.com.cleaner.R;
 import android.com.cleaner.adapters.UpcomingAppointmentsAdapter;
 import android.com.cleaner.apiResponses.customerCurrentJobs.CustomerCurrentJobs;
@@ -29,10 +28,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 public class FragmentUpcomingAppointments extends Fragment {
-
-
     private View view;
     private UpcomingAppointmentsAdapter adapter;
     private RecyclerView recyclerView;
@@ -43,30 +39,25 @@ public class FragmentUpcomingAppointments extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_upcoming_appointments, container, false);
-
         noInternetDialog = new NoInternetDialog.Builder(getContext()).build();
         findingIdsHere(view);
-
         callTheAdapterFromHere();
-
 //        setupActionBar();
 //        setupList();
         return view;
     }
-
     private void callTheAdapterFromHere() {
-        compositeDisposable.add(HttpModule.provideRepositoryService().customerCurrentJobsApi(Hawk.get("spanish",false)?"es":"en",String.valueOf(Hawk.get("savedUserId"))).
+        compositeDisposable.add(HttpModule.provideRepositoryService().customerCurrentJobsApi(Hawk.get("spanish", false) ? "es" : "en", String.valueOf(Hawk.get("savedUserId"))).
                 subscribeOn(io.reactivex.schedulers.Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Consumer<CustomerCurrentJobs>() {
-
                     @Override
                     public void accept(CustomerCurrentJobs customerCurrentJobs) throws Exception {
-
                         if (customerCurrentJobs != null && customerCurrentJobs.getIsSuccess()) {
-
+                            LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                            mLayoutManager.setReverseLayout(true);
                             recyclerView.setHasFixedSize(true);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerView.setLayoutManager(mLayoutManager);
                             adapter = new UpcomingAppointmentsAdapter(getActivity(), customerCurrentJobs.getPayload());
                             recyclerView.setAdapter(adapter);
                             recyclerView.setVisibility(View.VISIBLE);
@@ -76,41 +67,27 @@ public class FragmentUpcomingAppointments extends Fragment {
                             tvNoData.setVisibility(View.VISIBLE);
                             TastyToast.makeText(getActivity(), customerCurrentJobs.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                         }
-
                     }
-
-
                 }, new Consumer<Throwable>() {
-
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         recyclerView.setVisibility(View.GONE);
                         tvNoData.setVisibility(View.VISIBLE);
                         System.out.println("FragmentUpcomingAppointments.accept " + throwable.toString());
-
                     }
                 }));
-
-
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         noInternetDialog.onDestroy();
     }
-
-
     private void setupActionBar() {
-
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,17 +96,12 @@ public class FragmentUpcomingAppointments extends Fragment {
             });
         }
     }
-
-
     private void findingIdsHere(View view) {
-tvNoData=view.findViewById(R.id.no_data);
-
+        tvNoData = view.findViewById(R.id.no_data);
         recyclerView = view.findViewById(R.id.recyclerView);
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(CalligraphyContextWrapper.wrap(context));
-
     }
 }

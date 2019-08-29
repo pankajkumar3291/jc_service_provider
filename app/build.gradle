@@ -63,7 +63,7 @@ dependencies {
 
 
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
-    implementation 'com.github.jrvansuita:PickImage:2.2.4'
+    implementation 'com.github.jrvansuita:PickImage:2.2.3'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.0'
 

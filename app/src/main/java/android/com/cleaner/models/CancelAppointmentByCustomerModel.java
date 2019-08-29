@@ -1,8 +1,7 @@
 package android.com.cleaner.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-public class CancelAppointmentByCustomerModel {
-
+public class CancelAppointmentByCustomerModel{
     @SerializedName("isSuccess")
     @Expose
     private Boolean isSuccess;
@@ -12,7 +11,6 @@ public class CancelAppointmentByCustomerModel {
     @SerializedName("message")
     @Expose
     private String message;
-
     public Boolean getIsSuccess(){
         return isSuccess;
     }

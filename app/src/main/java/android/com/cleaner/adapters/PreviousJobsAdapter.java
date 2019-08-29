@@ -93,7 +93,7 @@ public class PreviousJobsAdapter extends RecyclerView.Adapter<PreviousJobsAdapte
         final Payload jobs = preJobsList.get(position);
         holder.tvTitle.setText(jobs.getServicesNames());
         holder.in_date.setText(jobs.getDate());
-        Picasso.get().load(jobs.getProviderProfile()).into(holder.profileImage);
+        Picasso.get().load(jobs.getProviderProfile()).error(R.drawable.noimage).into(holder.profileImage);
         holder.ratingBarReview.setMax(5);
         holder.ratingBarReview.setStepSize(0.01f);
         holder.ratingBarReview.setRating(jobs.getAverageRating());

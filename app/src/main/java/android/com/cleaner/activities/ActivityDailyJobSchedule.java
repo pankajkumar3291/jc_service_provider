@@ -17,18 +17,15 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeErrorDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.AwesomeSuccessDialog;
 import com.awesomedialog.blennersilva.awesomedialoglibrary.interfaces.Closure;
 import com.orhanobut.hawk.Hawk;
 import com.sdsmdg.tastytoast.TastyToast;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import io.apptik.widget.multiselectspinner.BaseMultiSelectSpinner;
@@ -39,40 +36,30 @@ import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 public class ActivityDailyJobSchedule extends AppCompatActivity implements View.OnClickListener {
-
 
     private TextView tvSelect_your_time, tvSelect_zipcode, tvSelectetTime, tvSubmit;
     private EditText edEnter_your_address;
     private MultiSelectSpinner multiselectSpinner;
     private int mHour, mMinute;
     private RelativeLayout relativeLayoutForZipcode;
-
     private List<String> items = new ArrayList<>();
     private SpinnerDialog spinnerDialog;
     private ArrayList<String> serviceTypes;
     private List<String> idsListServiceTypes;
     private String finalServicesIds;
-
     private String selectedTime;
     private String selectedZipcode;
-
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_your_daily_scheduling);
-
-
         findingIdsHere();
         eventListnerGoesHere();
         selectYourZopcodeOpener();
         typesOfSerives();
-
-
     }
 
     private void typesOfSerives() {
@@ -81,12 +68,8 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
             @Override
             public void onResponse(Call<TypesOfSerives> call, Response<TypesOfSerives> response) {
 
-
                 if (response.body() != null && response.body().getIsSuccess()) {
-
                     setMultiSpinner(response.body().getPayload());
-
-
                 } else {
                     TastyToast.makeText(ActivityDailyJobSchedule.this, Objects.requireNonNull(response.body()).getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                 }
@@ -107,18 +90,13 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
     }
 
     private void setMultiSpinner(final List<android.com.cleaner.apiResponses.typesOfServices.Payload> payload) {
-
-
         serviceTypes = new ArrayList<>();
-
         for (int i = 0; i < payload.size(); i++) {
 
             serviceTypes.add(payload.get(i).getName());
         }
-
         multiselectSpinner = findViewById(R.id.multiselectSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, serviceTypes);
-
         multiselectSpinner.setListener(new BaseMultiSelectSpinner.MultiSpinnerListener() {
             @Override
             public void onItemsSelected(boolean[] selected) {
@@ -128,26 +106,17 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
                 for (int temp = 0; temp < selected.length; temp++) {
 
                     if (selected[temp]) {
-
                         idsListServiceTypes.add(String.valueOf(payload.get(temp).getId()));
-
                     }
-
                     String idList = idsListServiceTypes.toString();
                     finalServicesIds = idList.substring(1, idList.length() - 1).replace(", ", ",");
                     System.out.println("ActivityBookCleaner.onItemsSelected " + finalServicesIds);
-
-
                 }
-
-
             }
         });
         multiselectSpinner.setListAdapter(adapter).setSelectAll(false).setAllCheckedText("All types")
                 .setAllUncheckedText("none selected")
                 .setSelectAll(false);
-
-
     }
 
     @Override
@@ -157,16 +126,11 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
     }
 
     private void eventListnerGoesHere() {
-
         tvSelect_your_time.setOnClickListener(this);
         relativeLayoutForZipcode.setOnClickListener(this);
         tvSubmit.setOnClickListener(this);
-
     }
-
-
     private void findingIdsHere() {
-
         tvSelect_your_time = findViewById(R.id.tvSelect_your_time);
         tvSelect_zipcode = findViewById(R.id.tvSelect_zipcode);
         tvSelectetTime = findViewById(R.id.tvSelectetTime);
@@ -174,30 +138,17 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
         multiselectSpinner = findViewById(R.id.multiselectSpinner);
         relativeLayoutForZipcode = findViewById(R.id.relativeLayoutForZipcode);
         tvSubmit = findViewById(R.id.tvSubmit);
-
     }
-
-
     @Override
     public void onClick(View v) {
-
-
         switch (v.getId()) {
-
             case R.id.tvSelect_your_time:
-
                 selectYourTimeOpener();
                 break;
-
-
             case R.id.relativeLayoutForZipcode:
                 spinnerDialog.showSpinerDialog();
                 break;
-
-
             case R.id.tvSubmit:
-
-
                 if (tvSelectetTime.getText().toString().matches("")) {
                     TastyToast.makeText(ActivityDailyJobSchedule.this, "All feilds are required", TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                 } else if (tvSelect_zipcode.getText().toString().matches("")) {
@@ -209,19 +160,11 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
                 } else {
                     dailyJobScheduledApiGoesHere();
                 }
-
-
                 break;
-
-
         }
-
-
     }
 
     private void dailyJobScheduledApiGoesHere() {
-
-
         compositeDisposable.add(HttpModule.provideRepositoryService().
                 dailyJobScheduled(String.valueOf(Hawk.get("savedUserId")), selectedTime, selectedZipcode, edEnter_your_address.getText().toString(), finalServicesIds).
                 subscribeOn(io.reactivex.schedulers.Schedulers.io()).
@@ -230,10 +173,7 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
 
                     @Override
                     public void accept(DailyJobScheduled dailyJobScheduled) throws Exception {
-
                         if (dailyJobScheduled != null && dailyJobScheduled.getIsSuccess()) {
-
-
                             new AwesomeSuccessDialog(ActivityDailyJobSchedule.this)
                                     .setTitle("Awesome")
                                     .setMessage(dailyJobScheduled.getMessage())
@@ -248,16 +188,10 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
                                         public void exec() {
 
                                             ActivityDailyJobSchedule.this.finish();
-
-
                                         }
                                     })
                                     .show();
-
-
                         } else {
-
-
                             new AwesomeErrorDialog(ActivityDailyJobSchedule.this)
                                     .setTitle("Oops")
                                     .setMessage(Objects.requireNonNull(dailyJobScheduled).getMessage())
@@ -269,14 +203,10 @@ public class ActivityDailyJobSchedule extends AppCompatActivity implements View.
                                     .setErrorButtonClick(new Closure() {
                                         @Override
                                         public void exec() {
-
-
                                         }
                                     })
                                     .show();
                         }
-
-
                     }
 
                 }, new Consumer<Throwable>() {

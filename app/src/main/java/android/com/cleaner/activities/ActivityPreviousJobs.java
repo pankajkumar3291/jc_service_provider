@@ -86,8 +86,11 @@ public class ActivityPreviousJobs extends AppCompatActivity implements ItemClick
                     public void accept(AllPreviousJobs allPreviousJobs) throws Exception {
                         if (allPreviousJobs != null && allPreviousJobs.getIsSuccess()) {
                             PreviousJobsAdapter previousJobsAdapter = new PreviousJobsAdapter(context, allPreviousJobs.getPayload());
+
+                            LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                            mLayoutManager.setReverseLayout(true);
                             recyclerViewPreviousJobs.setHasFixedSize(true);
-                            recyclerViewPreviousJobs.setLayoutManager(new LinearLayoutManager(ActivityPreviousJobs.this));
+                            recyclerViewPreviousJobs.setLayoutManager(mLayoutManager);
                             recyclerViewPreviousJobs.setAdapter(previousJobsAdapter);
                             previousJobsAdapter.setClickListener(ActivityPreviousJobs.this);
                         } else {

@@ -84,7 +84,7 @@ public class CompletedAppointmentsAdapter extends RecyclerView.Adapter<Completed
         holder.tvTypesOfJobs.setText(appointments.getServicesNames());
         holder.tvJobs.setText(appointments.getNoOfJobsCompleted().toString() + " " + "Job completed");
         holder.tvDates.setText(appointments.getDate());
-        Picasso.get().load(appointments.getProviderProfile()).into(holder.profileImage);
+        Picasso.get().load(appointments.getProviderProfile()).error(R.drawable.noimage).into(holder.profileImage);
 
 
         Drawable drawable = holder.averageRatingBar.getProgressDrawable();

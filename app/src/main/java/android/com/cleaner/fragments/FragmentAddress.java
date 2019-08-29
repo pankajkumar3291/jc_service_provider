@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -384,15 +385,15 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
         edCity = view.findViewById(R.id.edCity);
         edZipCode = view.findViewById(R.id.edZipCode);
         tvChangePass.setPaintFlags(tvChangePass.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tvChangePass.setOnClickListener(new View.OnClickListener() {
+        tvChangePass.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 changePasswordDialog();
             }
         });
-        SignUpBtn.setOnClickListener(new View.OnClickListener() {
+        SignUpBtn.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 loadingProgress();
                 updateCustomerProfile();
             }
@@ -596,23 +597,31 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
         });
     }
     private void changePasswordApiGoesHere() {
+
+        mProgressDialog.setMessage("Wait..");
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.show();
+
         compositeDisposable.add(HttpModule.provideRepositoryService().changePasswordAPI(String.valueOf(Hawk.get("savedUserId")), edOldPass.getText().toString(), edNewPassword.getText().toString()).
                 subscribeOn(io.reactivex.schedulers.Schedulers.computation()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Consumer<ChangePassword>() {
                     @Override
                     public void accept(ChangePassword changePassword) throws Exception {
+                        mProgressDialog.dismiss();
                         if (changePassword != null && changePassword.getIsSuccess()) {
-                            TastyToast.makeText(getActivity(), changePassword.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                            Toast.makeText(getActivity(), changePassword.getMessage(), Toast.LENGTH_SHORT).show();
                             alertDialog.dismiss();
                         } else {
-                            TastyToast.makeText(getActivity(), changePassword.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+                            Toast.makeText(getActivity(), changePassword.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        TastyToast.makeText(getActivity(), throwable.toString(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+                        mProgressDialog.dismiss();
+                        Toast.makeText(getActivity(), throwable.toString(),Toast.LENGTH_SHORT).show();
                     }
                 }));
     }

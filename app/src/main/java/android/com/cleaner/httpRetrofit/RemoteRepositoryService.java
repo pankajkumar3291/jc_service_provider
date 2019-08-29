@@ -1,7 +1,6 @@
 package android.com.cleaner.httpRetrofit;
 import android.com.cleaner.apiResponses.allPreviousJobs.AllPreviousJobs;
 import android.com.cleaner.apiResponses.bookACleaner.BookCleaner;
-import android.com.cleaner.apiResponses.cancelled_appintments.EOCancelledPayload;
 import android.com.cleaner.apiResponses.cancelled_appintments.GetCancelledAppointments;
 import android.com.cleaner.apiResponses.changePassword.ChangePassword;
 import android.com.cleaner.apiResponses.completedJobs.CustomerCompletedJobs;
@@ -16,6 +15,7 @@ import android.com.cleaner.apiResponses.getCityList.CityList;
 import android.com.cleaner.apiResponses.getFAQ.FAQ;
 import android.com.cleaner.apiResponses.getStateList.GetStateList;
 import android.com.cleaner.apiResponses.getZipcodeList.ZipCodeList;
+import android.com.cleaner.apiResponses.logout.LogoutApi;
 import android.com.cleaner.apiResponses.matchOtp.MatchOTP;
 import android.com.cleaner.apiResponses.monthlyJobScheduled.MonthlyJobScheduled;
 import android.com.cleaner.apiResponses.offerredServices.OfferredServices;
@@ -31,8 +31,8 @@ import android.com.cleaner.apiResponses.updateCustomerProfile.UpdateCustomerProf
 import android.com.cleaner.apiResponses.updateProfile.GetProfile;
 import android.com.cleaner.apiResponses.weeklyJobScheduled.AllWorkingDays;
 import android.com.cleaner.apiResponses.weeklyJobScheduled.weeklyJobScheduledResponse.WeeklyJobScheduled;
+import android.com.cleaner.models.CancelAppointmentByCustomerModel;
 import android.com.cleaner.requestModelsForWeeklyJob.WeeklyJobRequestModel;
-
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -128,6 +128,7 @@ public interface RemoteRepositoryService {
                                            @Field("servicetypes") String servicetypes,
                                            @Field("address") String address);
     // BOOK A CLEANER TEST
+    //LogoutApi
     @FormUrlEncoded
     @Headers("Cache-Control: max-age=640000")
     @POST("customer/InstantBooking")
@@ -137,6 +138,15 @@ public interface RemoteRepositoryService {
                                        @Field("time") String time,
                                        @Field("servicetypes") String servicetypes,
                                        @Field("address") String address);
+
+
+
+    @FormUrlEncoded
+    @POST("customer/logout")
+    Call<LogoutApi> logOut(@Field("id") String id);
+
+
+
     // MARK: GET ALL ZIPCODE -16
     @GET("customer/getAllZipcodes")
     Observable<GetAllZipcodeMain> getAllZipcodeAPI();
@@ -205,8 +215,8 @@ public interface RemoteRepositoryService {
 
     @FormUrlEncoded
     @POST("customer/CanceljobByCustomer")
-    Observable<AllPreviousJobs> cancelAppointmentByCustomer(@Field("language") String language,
-                                                @Field("Customer_id") String Customer_id);
+    Call<CancelAppointmentByCustomerModel> cancelAppointmentByCustomer(@Field("job_id") String language,
+                                                                           @Field("cutomer_id") String Customer_id);
 
 
     // REFERRAL CODE API 28

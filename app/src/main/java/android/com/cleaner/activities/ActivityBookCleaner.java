@@ -150,7 +150,7 @@ public class ActivityBookCleaner extends AppCompatActivity {
     }
     // MARK: GOOGLE PLACES SEARCH
     private void googlePlacesApisGoesHere(TextView tvBookCleanerSubmit){
-//        http://velmm.com/google-places-autocomplete-android-example/
+// http://velmm.com/google-places-autocomplete-android-example/
         placeAutocompleteFragment = (PlaceAutocompleteFragment) this.getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         AutocompleteFilter autocompleteFilter = new AutocompleteFilter.Builder()/*.setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)*/.build();
         placeAutocompleteFragment.setFilter(autocompleteFilter);

@@ -12,7 +12,11 @@ public class HttpModule {
     private static OkHttpClient getOkkHttpClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.BODY);
-        return new OkHttpClient.Builder().writeTimeout(60, TimeUnit.SECONDS).connectTimeout(60, TimeUnit.SECONDS).addInterceptor(logging).build();
+        return new OkHttpClient.Builder()
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .addInterceptor(logging)
+                .build();
     }
     public static Retrofit getRetroFitClient(){
         return new Retrofit.Builder()

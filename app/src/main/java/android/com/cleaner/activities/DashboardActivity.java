@@ -3,6 +3,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.com.cleaner.R;
 import android.com.cleaner.apiResponses.customerFullDetailsApis.CustomerFullDetails;
+import android.com.cleaner.apiResponses.logout.LogoutApi;
 import android.com.cleaner.apiResponses.updateProfile.GetProfile;
 import android.com.cleaner.fragments.BookCleanerFragment;
 import android.com.cleaner.fragments.FragmentAddress;
@@ -53,26 +54,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
-import com.sdsmdg.tastytoast.TastyToast;
 import com.squareup.picasso.Picasso;
-import com.vansuita.pickimage.bean.PickResult;
-import com.vansuita.pickimage.bundle.PickSetup;
-import com.vansuita.pickimage.dialog.PickImageDialog;
-import com.vansuita.pickimage.enums.EPickType;
-import com.vansuita.pickimage.listeners.IPickResult;
-
-import java.io.File;
 import java.util.Locale;
 import java.util.Objects;
-
 import am.appwise.components.ni.NoInternetDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -115,17 +104,17 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
-    private void makingAppLanguagesLocalizeForSpanish(){
+    private void makingAppLanguagesLocalizeForSpanish() {
         Locale locale = new Locale("es");
         Configuration config = getBaseContext().getResources().getConfiguration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
-    private void customerFullDetailsApi() {
+    private void customerFullDetailsApi(){
         compositeDisposable.add(HttpModule.provideRepositoryService().customerFullDetailsApi(String.valueOf(Hawk.get("savedUserId"))).
                 subscribeOn(io.reactivex.schedulers.Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Consumer<CustomerFullDetails>() {
+                subscribe(new Consumer<CustomerFullDetails>(){
                     @Override
                     public void accept(CustomerFullDetails customerFullDetails) throws Exception {
                         if (customerFullDetails != null && customerFullDetails.getIsSuccess()) {
@@ -145,26 +134,26 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                     public void accept(Throwable throwable) throws Exception {
                         System.out.println("DashboardActivity.accept " + throwable.toString());
                     }
-                }));
+    }));
     }
     @Override
-    protected void onDestroy() {
+    protected void onDestroy(){
         super.onDestroy();
         noInternetDialog.onDestroy();
     }
     @Override
-    protected void attachBaseContext(Context newBase) {
+    protected void attachBaseContext(Context newBase){
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-    private void showHome() {
+    private void showHome(){
         selectDrawerItem(navigationView.getMenu().getItem(0));
 //        drawerLayout.openDrawer(GravityCompat.START); // its bydefault opening the drawer
     }
-    private void selectDrawerItem(MenuItem menuItem) {
+    private void selectDrawerItem(MenuItem menuItem){
         boolean specialToolbarBehaviour = false;
         Class fragmentClass;
         String tag = "";
-        switch (menuItem.getItemId()) {
+        switch (menuItem.getItemId()){
             case R.id.drawer_home:
                 tag = "dashboard";
                 fragmentClass = BookCleanerFragment.class;
@@ -200,7 +189,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         try {
             Fragment fragment = (Fragment) fragmentClass.newInstance();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, tag).commit();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
 //        setToolbarElevation(specialToolbarBehaviour);
@@ -359,19 +348,42 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         tvYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sharedPrefsHelper.deleteSavedData(AppConstant.KEEP_ME_LOGGED_IN);
-                Hawk.delete("keepMeLoggedIn");
-                Hawk.delete("FIRST_NAME");
-                Hawk.delete("EMAIL_ID");
-                Hawk.delete("USER_NAME");
-                Hawk.delete("EMAIL_ID_SIGNIN");
-                Intent intent = new Intent(DashboardActivity.this, ActivityMain.class);
-                startActivity(intent);
-                finish();
+//                sharedPrefsHelper.deleteSavedData(AppConstant.KEEP_ME_LOGGED_IN);
+//                Hawk.delete("keepMeLoggedIn");
+//                Hawk.delete("FIRST_NAME");
+//                Hawk.delete("EMAIL_ID");
+//                Hawk.delete("USER_NAME");
+//                Hawk.delete("EMAIL_ID_SIGNIN");
+//                Intent intent = new Intent(DashboardActivity.this, ActivityMain.class);
+//                startActivity(intent);
+                callLogoutApi();
             }
         });
     }
-
+    private void callLogoutApi() {
+        HttpModule.provideRepositoryService().logOut(String.valueOf(Hawk.get("savedUserId"))).enqueue(new Callback<LogoutApi>() {
+            @Override
+            public void onResponse(Call<LogoutApi> call, Response<LogoutApi> response) {
+                if (response.body().getIsSuccess()) {
+                    sharedPrefsHelper.deleteSavedData(AppConstant.KEEP_ME_LOGGED_IN);
+                    Hawk.delete("keepMeLoggedIn");
+                    Hawk.delete("FIRST_NAME");
+                    Hawk.delete("EMAIL_ID");
+                    Hawk.delete("USER_NAME");
+                    Hawk.delete("EMAIL_ID_SIGNIN");
+                    Intent intent = new Intent(DashboardActivity.this, ActivityMain.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<LogoutApi> call, Throwable t) {
+                System.out.println("exception" + t.getMessage());
+            }
+        });
+    }
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
@@ -410,8 +422,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
     public void updateImage(String url) {
 //        Hawk.get("cImg")
-
-  Hawk.put("cImg",url);
+        Hawk.put("cImg", url);
         Picasso.get().load(url).resize(100, 100).error(R.drawable.ic_user).into(cleanearsProfile);
     }
 }

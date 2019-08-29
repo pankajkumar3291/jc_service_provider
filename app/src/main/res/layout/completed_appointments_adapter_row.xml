@@ -35,7 +35,7 @@
                 android:layout_height="@dimen/_70sdp"
                 android:layout_below="@+id/img_background"
                 android:layout_gravity="center"
-                android:src="@drawable/shahzeb"
+                android:src="@drawable/noimage"
                 app:civ_border_color="#fff"
                 app:civ_border_width="2dp" />
 

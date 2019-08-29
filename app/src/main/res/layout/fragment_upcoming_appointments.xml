@@ -13,13 +13,14 @@
         android:background="?attr/colorPrimary"
         android:visibility="gone"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        app:stackFromEnd="true"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/toolbar"/>
     <TextView
         android:id="@+id/no_data"
         android:layout_width="wrap_content"

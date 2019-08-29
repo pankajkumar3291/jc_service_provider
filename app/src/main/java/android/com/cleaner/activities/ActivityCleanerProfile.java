@@ -72,7 +72,7 @@ public class ActivityCleanerProfile extends AppCompatActivity implements View.On
                         @Override
                         public void onNext(ProfileInformation profileInformation) {
                             System.out.println("ActivityCleanerProfile.onNext " + profileInformation);
-                            Picasso.get().load(profileInformation.getProviderProfileImage());
+                            Picasso.get().load(profileInformation.getProviderProfileImage()).error(R.drawable.noimage).into(cleanearsProfile);
                             tvStartTime.setText(profileInformation.getProviderStartTime());
                             tvLastTime.setText(profileInformation.getProviderEndTime());
                             tvBioScrollable.setText(profileInformation.getProviderBio());
@@ -115,7 +115,7 @@ public class ActivityCleanerProfile extends AppCompatActivity implements View.On
                 }));
     }
     private void setTheValuesOfCleaner(Payload payLoad) {
-        Picasso.get().load(payLoad.getProfilePic()).into(cleanearsProfile);
+        Picasso.get().load(payLoad.getProfilePic()).error(R.drawable.noimage).into(cleanearsProfile);
         tvStartTime.setText(payLoad.getStartTime());
         tvLastTime.setText(payLoad.getEndTime());
         tvBioScrollable.setText(Html.fromHtml(payLoad.getBio()));

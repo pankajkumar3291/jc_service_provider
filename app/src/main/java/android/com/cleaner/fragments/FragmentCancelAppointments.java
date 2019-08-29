@@ -110,11 +110,11 @@ public class FragmentCancelAppointments extends Fragment {
            cancelAppointmentsViewHolder.in_time.setText(eoCancelledPayload.getTime());
            if (!TextUtils.isEmpty(eoCancelledPayload.getProviderProfile()))
            {
-               Picasso.get().load(eoCancelledPayload.getProviderProfile()).resize(100,100).error(R.drawable.ic_user).into(cancelAppointmentsViewHolder.profileImage);
+               Picasso.get().load(eoCancelledPayload.getProviderProfile()).resize(100,100).error(R.drawable.noimage).into(cancelAppointmentsViewHolder.profileImage);
            }
            else
            {
-               cancelAppointmentsViewHolder.profileImage.setImageResource(R.drawable.ic_user);
+               cancelAppointmentsViewHolder.profileImage.setImageResource(R.drawable.noimage);
            }
        }
        @Override
