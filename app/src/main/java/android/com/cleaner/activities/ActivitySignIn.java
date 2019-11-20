@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -145,6 +147,7 @@ public class ActivitySignIn extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btnDontHave:
                 Intent intent1 = new Intent(ActivitySignIn.this, ActivitySignUp.class);
+                intent1.putExtra("fromlogin","login");
                 startActivity(intent1);
                 break;
         }
@@ -173,37 +176,42 @@ public class ActivitySignIn extends BaseActivity implements View.OnClickListener
 
     private void callingSignInApiHere(){
         String firebaseToekn = FirebaseInstanceId.getInstance().getToken();
-        HttpModule.provideRepositoryService().signInAPI(edEmailPhone.getText().toString(), edPassword.getText().toString(), firebaseToekn).enqueue(new Callback<SignIn>() {
-            @Override
-            public void onResponse(@NonNull Call<SignIn> call, @NonNull Response<SignIn> response) {
-                mProgressDialog.dismiss();
-                if (response.body() != null && response.body().getIsSuccess()) {
-                    clearingTheEditTextEnteredValues();
-                    String userId = String.valueOf(response.body().getPayload().getUserId());
-                    Hawk.put("USER_ID", userId);
-                    Hawk.put("USER_NAME", response.body().getPayload().getUsername());
-                    Hawk.put("EMAIL_ID_SIGNIN", edEmailPhone.getText().toString());
-                    Hawk.put("savedUserId", userId);
-                    if (chKeemMeLoggedIn.isChecked()) {
-                        preferences.put(AppConstant.KEEP_ME_LOGGED_IN, true);
-                    }
-                    showTheDialogMessageForOk(response.body().getMessage());
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            callingActivity();
+        try {
+            HttpModule.provideRepositoryService().signInAPI(edEmailPhone.getText().toString(), edPassword.getText().toString(), firebaseToekn).enqueue(new Callback<SignIn>() {
+                @Override
+                public void onResponse(@NonNull Call<SignIn> call, @NonNull Response<SignIn> response) {
+                    mProgressDialog.dismiss();
+                    if (response.body() != null && response.body().getIsSuccess()) {
+                        clearingTheEditTextEnteredValues();
+                        String userId = String.valueOf(response.body().getPayload().getUserId());
+                        Hawk.put("USER_ID", userId);
+                        Hawk.put("USER_NAME", response.body().getPayload().getUsername());
+                        Hawk.put("EMAIL_ID_SIGNIN", edEmailPhone.getText().toString());
+                        Hawk.put("savedUserId", userId);
+                        if (chKeemMeLoggedIn.isChecked()) {
+                            preferences.put(AppConstant.KEEP_ME_LOGGED_IN, true);
                         }
-                    }, 2000);
-                } else {
-//                    showTheDialogMessageForError(Objects.requireNonNull(response.body()).getMessage());
+                        showTheDialogMessageForOk(response.body().getMessage());
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                callingActivity();
+                            }
+                        }, 2000);
+                    } else {
+                        Toast.makeText(getApplicationContext(),response.body().getMessage(),Toast.LENGTH_SHORT).show();
+    //                    showTheDialogMessageForError(Objects.requireNonNull(response.body()).getMessage());
+                    }
                 }
-            }
-            @Override
-            public void onFailure(@NonNull Call<SignIn> call, @NonNull Throwable t) {
-                mProgressDialog.dismiss();
-                System.out.println("ActivitySignIn.onFailure " + t.toString());
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<SignIn> call, @NonNull Throwable t) {
+                    mProgressDialog.dismiss();
+                    System.out.println("ActivitySignIn.onFailure " + t.toString());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private void clearingTheEditTextEnteredValues() {
         edEmailPhone.setError(null);

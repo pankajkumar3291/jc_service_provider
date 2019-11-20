@@ -105,7 +105,7 @@ public class UpcomingAppointmentsAdapter extends RecyclerView.Adapter<UpcomingAp
 viewHolder.tvChat.setOnClickListener(new View.OnClickListener(){
     @Override
     public void onClick(View v){
-        Toast.makeText(mcontext,payload.getJobId().toString(),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mcontext,payload.getJobId().toString(),Toast.LENGTH_SHORT).show();
         mcontext.startActivity(new Intent(mcontext,ActivityChat.class).putExtra("jobid",payload.getJobId()).putExtra("pid",payload.getProviderId()));
     }
 });

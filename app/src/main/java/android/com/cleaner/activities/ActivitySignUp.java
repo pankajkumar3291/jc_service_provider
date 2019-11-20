@@ -1,5 +1,4 @@
 package android.com.cleaner.activities;
-
 import android.app.ProgressDialog;
 import android.com.cleaner.R;
 import android.com.cleaner.apiResponses.getCityList.CityList;
@@ -49,10 +48,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
-
 public class ActivitySignUp extends BaseActivity implements View.OnClickListener, Validator.ValidationListener {
-
     private ImageView backArrowImage;
     @NotEmpty(message = "Please enter the name")
     public EditText edName;
@@ -83,7 +79,7 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
     private ArrayList<String> zipCodelistIdPos = new ArrayList<>();
     private String stateIdHolder, cityIdHolder, zipCodeIdHolder;
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_new);
         context = this;
@@ -96,12 +92,12 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
         changingStatusBarColorHere();
         spinnerForStateOperationGoesHere();
     }
-    private void spinnerForStateOperationGoesHere(){
-        HttpModule.provideRepositoryService().getStateListAPI().enqueue(new Callback<GetStateList>(){
+    private void spinnerForStateOperationGoesHere() {
+        HttpModule.provideRepositoryService().getStateListAPI().enqueue(new Callback<GetStateList>() {
             @Override
-            public void onResponse(Call<GetStateList> call, Response<GetStateList> response){
-                if (response.body() != null){
-                    if (response.body() != null && response.body().getIsSuccess()){
+            public void onResponse(Call<GetStateList> call, Response<GetStateList> response) {
+                if (response.body() != null) {
+                    if (response.body() != null && response.body().getIsSuccess()) {
                         spinnerSetupForState(response.body().getPayload());
                     } else {
                         TastyToast.makeText(ActivitySignUp.this, response.body().getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
@@ -111,13 +107,12 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
                 }
             }
             @Override
-            public void onFailure(Call<GetStateList> call, Throwable t){
+            public void onFailure(Call<GetStateList> call, Throwable t) {
                 System.out.println("ActivitySignUp.onFailure" + t);
             }
         });
     }
-
-    private void spinnerSetupForState(List<Payload> payload){
+    private void spinnerSetupForState(List<Payload> payload) {
         ArrayList<String> stateArrList = new ArrayList<>();
         stateArrList.add("Choose states");
         statelistIdPos.add("0");
@@ -131,51 +126,48 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
         spinnerStates.setAdapter(dataAdapter);
         spinnerItemSelectionForState();
     }
-    private void spinnerItemSelectionForState(){
-        spinnerStates.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+    private void spinnerItemSelectionForState() {
+        spinnerStates.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 stateIdHolder = statelistIdPos.get(position);
                 Hawk.put("STATE_ID_HOLDER", stateIdHolder);
                 spinnerForCitiesOperationGoesHere(stateIdHolder);
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parent){
-                Toast.makeText(ActivitySignUp.this, parent + "",Toast.LENGTH_SHORT).show();
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(ActivitySignUp.this, parent + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-    private void spinnerForCitiesOperationGoesHere(String stateIdHolder){
+    private void spinnerForCitiesOperationGoesHere(String stateIdHolder) {
         disposable.add(HttpModule.provideRepositoryService().getCitiesAPI(stateIdHolder).
                 subscribeOn(io.reactivex.schedulers.Schedulers.computation()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Consumer<CityList>(){
+                subscribe(new Consumer<CityList>() {
                     @Override
-                    public void accept(CityList cityList) throws Exception{
-                        if (cityList != null && cityList.getIsSuccess()){
+                    public void accept(CityList cityList) throws Exception {
+                        if (cityList != null && cityList.getIsSuccess()) {
                             spinnerSetupForCityGoesHere(cityList);
                         } else {
 //                        TastyToast.makeText(ActivitySignUp.this, cityList.getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                         }
                     }
-                }, new Consumer<Throwable>(){
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception{
+                    public void accept(Throwable throwable) throws Exception {
                         System.out.println("ActivitySignUp.accept " + throwable.toString());
                         TastyToast.makeText(ActivitySignUp.this, throwable.toString(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                     }
                 }));
     }
-
-    private void spinnerSetupForCityGoesHere(CityList cityList){
+    private void spinnerSetupForCityGoesHere(CityList cityList) {
         ArrayList<String> cityArrayList = new ArrayList<>();
         cityArrayList.add("Choose cities");
         citylistIdPos.add("0");
         for (int j = 0; j < cityList.getPayload().size(); j++) {
             cityArrayList.add(cityList.getPayload().get(j).getName());
             citylistIdPos.add(String.valueOf(cityList.getPayload().get(j).getId()));
-
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cityArrayList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -183,10 +175,7 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
         spinnerCities.setAdapter(dataAdapter);
         spinnerItemSelectionForCity();
     }
-
     private void spinnerItemSelectionForCity() {
-
-
         spinnerCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -196,126 +185,82 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                TastyToast.makeText(ActivitySignUp.this,parent + "", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                TastyToast.makeText(ActivitySignUp.this, parent + "", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
             }
         });
     }
-
     private void spinnerForZipCodeOperationGoesHere(String cityIdHolder) {
-
-
         disposable.add(HttpModule.provideRepositoryService().getZipCodeListAPI(cityIdHolder).
                 subscribeOn(io.reactivex.schedulers.Schedulers.computation()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Consumer<ZipCodeList>(){
+                subscribe(new Consumer<ZipCodeList>() {
                     @Override
-                    public void accept(ZipCodeList zipCodeList) throws Exception{
-
-                        if (zipCodeList != null && zipCodeList.getIsSuccess()){
+                    public void accept(ZipCodeList zipCodeList) throws Exception {
+                        if (zipCodeList != null && zipCodeList.getIsSuccess()) {
                             spinnerSetupForZipCodeGoesHere(zipCodeList);
                         } else {
 //                            TastyToast.makeText(ActivitySignUp.this, Objects.requireNonNull(zipCodeList).getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                         }
                     }
-                }, new Consumer<Throwable>(){
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception{
-
+                    public void accept(Throwable throwable) throws Exception {
                         TastyToast.makeText(ActivitySignUp.this, throwable.toString(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                     }
                 }));
     }
-
     private void spinnerSetupForZipCodeGoesHere(ZipCodeList zipCodeList) {
-
-
         ArrayList<String> zipCodeArrayList = new ArrayList<>();
-
         zipCodeArrayList.add("Choose zipcode");
         zipCodelistIdPos.add("0");
-
         for (int j = 0; j < zipCodeList.getPayload().size(); j++) {
-
-
             zipCodeArrayList.add(zipCodeList.getPayload().get(j).getZipcode());
             zipCodelistIdPos.add(String.valueOf(zipCodeList.getPayload().get(j).getId()));
-
         }
-
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, zipCodeArrayList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerZipCode.setDropDownWidth(700);
         spinnerZipCode.setAdapter(dataAdapter);
-
         spinnerItemSelectionForZipCode();
-
-
     }
-
     private void spinnerItemSelectionForZipCode() {
-
-
         spinnerZipCode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
                 zipCodeIdHolder = zipCodelistIdPos.get(position);
                 Hawk.put("ZIPCODE_ID_HOLDER", zipCodeIdHolder);
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
                 TastyToast.makeText(ActivitySignUp.this, parent + "", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-
             }
         });
     }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         noInternetDialog.onDestroy();
         disposable.dispose();
     }
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
-
     private void initializingValidationHere() {
         validator = new Validator(this);
         validator.setValidationListener(this);
-
     }
-
-
     private void changingStatusBarColorHere() {
         getWindow().setStatusBarColor(ContextCompat.getColor(ActivitySignUp.this, R.color.statusBarColor));
-
     }
-
     private void eventListener() {
-
         backArrowImage.setOnClickListener(this);
         SignUpBtn.setOnClickListener(this);
         tvAlreadyMember.setOnClickListener(this);
-
-
     }
-
     private void findingIdsHere() {
-
-
         mProgressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
         backArrowImage = findViewById(R.id.backArrowImage);
-
         edName = findViewById(R.id.edName);
         edAddress = findViewById(R.id.edAddress);
         edPhoneNumber = findViewById(R.id.edPhoneNumber);
@@ -323,125 +268,91 @@ public class ActivitySignUp extends BaseActivity implements View.OnClickListener
         edPassword = findViewById(R.id.edPassword);
         edCity = findViewById(R.id.edCity);
         edZipCode = findViewById(R.id.edZipCode);
-
         spinnerStates = findViewById(R.id.spinnerStates);
-
         SignUpBtn = findViewById(R.id.SignUpBtn);
         tvAlreadyMember = findViewById(R.id.tvAlreadyMember);
-
         tvStates = findViewById(R.id.tvStates);
-
         spinnerCities = findViewById(R.id.spinnerCities);
         spinnerZipCode = findViewById(R.id.spinnerZipCode);
-
-
         TextInputLayout usernameTextObj = (TextInputLayout) findViewById(R.id.tilPass);
         usernameTextObj.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/headingbrew.otf"));
-
-
     }
-
-
     @Override
     public void onClick(View view) {
-
-
         switch (view.getId()) {
             case R.id.backArrowImage:
-
                 finish();
-
                 break;
-
             case R.id.tvAlreadyMember:
-
-                Intent intent = new Intent(ActivitySignUp.this, ActivitySignIn.class);
-                startActivity(intent);
-                finish();
-
+                if (getIntent() != null) {
+                    if (getIntent().hasExtra("fromlogin")) {
+                        finish();
+                    } else {
+                        Intent intent = new Intent(ActivitySignUp.this, ActivitySignIn.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Intent intent = new Intent(ActivitySignUp.this, ActivitySignIn.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
-
             case R.id.SignUpBtn:
                 loginProgressing();
                 validator.validate();
                 break;
         }
-
     }
-
     private void loginProgressing() {
         mProgressDialog.setMessage("Signing up..");
 //        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressDialog.setCancelable(false);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.show();
-
     }
-
-
     private void callingDashboardActivity() {
-
         Intent intent1 = new Intent(ActivitySignUp.this, ActivitySignIn.class);
 //        intent1.putExtra("Uniqid", "ActivitySignUp");
         startActivity(intent1);
         finish();
-
     }
-
-private  boolean checkEmail(String email)
-{
-    return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-}
+    private boolean checkEmail(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
     @Override
     public void onValidationSucceeded() {
         clearingTheEdittextHere();
         savingEnteredValues();
         gettingEnteredValues();
-        if (edPassword.getText().toString().length()<8)
-        {
+        if (edPassword.getText().toString().length() < 8) {
             edPassword.setError("password must be minimum 8 character or digits");
         }
-        if (!checkEmail(edEmail.getText().toString()))
-        {
+        if (!checkEmail(edEmail.getText().toString())) {
             edEmail.setError("Please enter valid email");
         }
-
-        if (spinnerStates.getSelectedItem().toString().equalsIgnoreCase("Select State") ||spinnerStates.getSelectedItem().toString().equalsIgnoreCase("Choose states")) {
+        if (spinnerStates.getSelectedItem().toString().equalsIgnoreCase("Select State") || spinnerStates.getSelectedItem().toString().equalsIgnoreCase("Choose states")) {
             mProgressDialog.dismiss();
             TastyToast.makeText(ActivitySignUp.this, "Please select state", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
-        }
-        else if(spinnerCities.getSelectedItem().toString().equalsIgnoreCase("Choose cities"))
-        {
+        } else if (spinnerCities.getSelectedItem().toString().equalsIgnoreCase("Choose cities")) {
             mProgressDialog.dismiss();
-            Toast.makeText(getApplicationContext(),"Please select cities",Toast.LENGTH_SHORT).show();
-        }
-
-        else if(spinnerZipCode.getSelectedItem().toString().equalsIgnoreCase("Choose zipcode"))
-        {
+            Toast.makeText(getApplicationContext(), "Please select cities", Toast.LENGTH_SHORT).show();
+        } else if (spinnerZipCode.getSelectedItem().toString().equalsIgnoreCase("Choose zipcode")) {
             mProgressDialog.dismiss();
-            Toast.makeText(getApplicationContext(),"Please select zipcode",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please select zipcode", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else {
+        } else {
             callingSignUpApiHere();
         }
     }
     private void callingSignUpApiHere() {
-
         android_DeviceID = Settings.Secure.getString(ActivitySignUp.this.getContentResolver(), Settings.Secure.ANDROID_ID);
-
-
         String firebaseToekn = FirebaseInstanceId.getInstance().getToken();
-
-
         HttpModule.provideRepositoryService().signUpAPI(edName.getText().toString(), "", edEmail.getText().toString(), edPassword.getText().toString(), edPhoneNumber.getText().toString(), edAddress.getText().toString(), "A", "cu", Integer.parseInt(stateIdHolder), cityIdHolder, Integer.parseInt(zipCodeIdHolder), firebaseToekn).enqueue(new Callback<SignUp>() {
             @Override
             public void onResponse(Call<SignUp> call, Response<SignUp> response) {
-
                 mProgressDialog.dismiss();
-
-                if (response.body() != null){
-
+                if (response.body() != null) {
                     if (response.body().getIsSuccess()) {
                         String savedUserId = String.valueOf(response.body().getPayload().getUserId());
                         Hawk.put("savedUserId", savedUserId);
@@ -460,19 +371,13 @@ private  boolean checkEmail(String email)
                     TastyToast.makeText(ActivitySignUp.this, "500 Internal server error", TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
                 }
             }
-
             @Override
             public void onFailure(Call<SignUp> call, Throwable t) {
-
                 mProgressDialog.dismiss();
                 TastyToast.makeText(ActivitySignUp.this, t.toString(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
-
             }
         });
-
-
     }
-
     private void savingTheValuesinHawkHere() {
         Hawk.put("FIRST_NAME", edName.getText().toString());
         Hawk.put("EMAIL_ID", edEmail.getText().toString());
@@ -483,9 +388,7 @@ private  boolean checkEmail(String email)
         Hawk.put("CITY_VALUE", spinnerCities.getSelectedItem().toString());
         Hawk.put("ZIPCODE_VALUE", spinnerZipCode.getSelectedItem().toString());
     }
-
     private void clearingTheEdittextHere() {
-
         edName.setError(null);
         edAddress.setError(null);
         edPhoneNumber.setError(null);
@@ -494,7 +397,6 @@ private  boolean checkEmail(String email)
         edCity.setError(null);
         edZipCode.setError(null);
     }
-
     public static void gettingEnteredValues() {
         String name = Hawk.get("NAME");
         String address = Hawk.get("ADDRESS");
@@ -504,7 +406,6 @@ private  boolean checkEmail(String email)
         String zipcode = Hawk.get("ZIPCODE");
         String spinnerStates = Hawk.get("SPINNER STATES");
     }
-
     private void savingEnteredValues() {
         Hawk.put("NAME", edName.getText().toString());
         Hawk.put("EMAIL", edEmail.getText().toString());
@@ -515,19 +416,14 @@ private  boolean checkEmail(String email)
         Hawk.put("ZIPCODE", edZipCode.getText().toString());
         Hawk.put("SPINNER STATES", spinnerStates.getSelectedItem().toString());
     }
-
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-
         mProgressDialog.dismiss();
-
 //        Toast.makeText(this, errors + "", Toast.LENGTH_LONG).show();
-        if (edPassword.getText().toString().length()<8)
-        {
+        if (edPassword.getText().toString().length() < 8) {
             edPassword.setError("password must be minimum 8 character or digits");
         }
-        if (!checkEmail(edEmail.getText().toString()))
-        {
+        if (!checkEmail(edEmail.getText().toString())) {
             edEmail.setError("Please enter valid email");
         }
         for (ValidationError error : errors) {
@@ -540,9 +436,5 @@ private  boolean checkEmail(String email)
 //                Toast.makeText(ActivitySignUp.this, message, Toast.LENGTH_LONG).show();
             }
         }
-
-
     }
-
-
 }

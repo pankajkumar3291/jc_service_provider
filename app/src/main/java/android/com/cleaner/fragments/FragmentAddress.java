@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -94,7 +95,7 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
     private String stateId, cityId, zipcodeId;
     private ArrayAdapter<String> dataAdapterForCities;
     private ArrayAdapter<String> dataAdapterForZipcodes;
-    private UpdateImage updateImage ;
+    private UpdateImage updateImage;
     List<String> arrayCitiesName;
     ArrayList<String> arrayZipcodeNames;
     String nameCheck, addressCheck, phoneNumberCheck;
@@ -275,7 +276,7 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
             }
         });
     }
-    private void customerFullDetails(){
+    private void customerFullDetails() {
         compositeDisposable.add(HttpModule.provideRepositoryService().customerFullDetailsApi(String.valueOf(Hawk.get("savedUserId"))).
                 subscribeOn(io.reactivex.schedulers.Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
@@ -299,10 +300,6 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
                             stateId = String.valueOf(customerFullDetails.getPayLoad().getStateId());
                             cityId = customerFullDetails.getPayLoad().getCityId();
                             zipcodeId = customerFullDetails.getPayLoad().getZipcodeId();
-
-
-
-
                             Picasso.get().load(customerFullDetails.getPayLoad().getUserDetails().getImage()).resize(100, 100).error(R.drawable.ic_user).into(profileImage);
                             Hawk.put("cEmail", customerFullDetails.getPayLoad().getUserDetails().getEmail());
                             Hawk.put("cName", customerFullDetails.getPayLoad().getUserDetails().getFirstName());
@@ -385,15 +382,15 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
         edCity = view.findViewById(R.id.edCity);
         edZipCode = view.findViewById(R.id.edZipCode);
         tvChangePass.setPaintFlags(tvChangePass.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tvChangePass.setOnClickListener(new View.OnClickListener(){
+        tvChangePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changePasswordDialog();
             }
         });
-        SignUpBtn.setOnClickListener(new View.OnClickListener(){
+        SignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 loadingProgress();
                 updateCustomerProfile();
             }
@@ -532,11 +529,8 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
             }
         }).show(Objects.requireNonNull(getActivity()));
     }
-
-    public void getImageUrl(String url){
-
+    public void getImageUrl(String url) {
     }
-
     private void userProfilePicApi(final PickResult pickResult) {
         File file = new File(pickResult.getPath());
         final RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
@@ -553,7 +547,7 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
                     pickResult.getBitmap().compress(Bitmap.CompressFormat.PNG, 100, baos);
                     byte[] b = baos.toByteArray();
                     String temp = Base64.encodeToString(b, Base64.DEFAULT);
-                    String url=response.body().getPayLoad();
+                    String url = response.body().getPayLoad();
                     ((DashboardActivity) getActivity()).updateImage(response.body().getPayLoad());
                     Hawk.put("TEMP", temp);
                     showTheDialogMessageForOk(Objects.requireNonNull(response.body()).getMessage());
@@ -592,17 +586,31 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changePasswordApiGoesHere();
+                if (TextUtils.isEmpty(edOldPass.getText().toString())) {
+                    edOldPass.setError("Enter old password");
+                }
+                if (TextUtils.isEmpty(edNewPassword.getText().toString())) {
+                    edNewPassword.setError("Enter new password");
+                }
+                if (TextUtils.isEmpty(edPasswordConfirm.getText().toString())) {
+                    edPasswordConfirm.setError("Enter confirm password");
+                } else if (!edPasswordConfirm.getText().toString().equalsIgnoreCase(edNewPassword.getText().toString())) {
+                    Toast.makeText(getContext(), "Confirm password does't match", Toast.LENGTH_SHORT).show();
+                }
+                if ((!TextUtils.isEmpty(edOldPass.getText().toString()))
+                        && (!TextUtils.isEmpty(edNewPassword.getText().toString()))
+                        && (!TextUtils.isEmpty(edPasswordConfirm.getText().toString()))
+                        && (edPasswordConfirm.getText().toString().equalsIgnoreCase(edNewPassword.getText().toString()))) {
+                    changePasswordApiGoesHere();
+                }
             }
         });
     }
-    private void changePasswordApiGoesHere() {
-
+    private void changePasswordApiGoesHere(){
         mProgressDialog.setMessage("Wait..");
         mProgressDialog.setCancelable(false);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.show();
-
         compositeDisposable.add(HttpModule.provideRepositoryService().changePasswordAPI(String.valueOf(Hawk.get("savedUserId")), edOldPass.getText().toString(), edNewPassword.getText().toString()).
                 subscribeOn(io.reactivex.schedulers.Schedulers.computation()).
                 observeOn(AndroidSchedulers.mainThread()).
@@ -617,11 +625,11 @@ public class FragmentAddress extends BaseFragment implements View.OnClickListene
                             Toast.makeText(getActivity(), changePassword.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                }, new Consumer<Throwable>() {
+                }, new Consumer<Throwable>(){
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mProgressDialog.dismiss();
-                        Toast.makeText(getActivity(), throwable.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), throwable.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }));
     }
