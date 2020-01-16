@@ -45,7 +45,6 @@ public class ActivityForgetPassword extends AppCompatActivity implements View.On
     ProgressDialog mProgressDialog;
     private NoInternetDialog noInternetDialog;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,7 +167,8 @@ public class ActivityForgetPassword extends AppCompatActivity implements View.On
                     if (response.body() != null && response.body().getIsSuccess()) {
 
                         savingValuesInHawk();
-                        TastyToast.makeText(ActivityForgetPassword.this, response.body().getMessage(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                        Hawk.put("savedUserId",response.body().getPayLoad().getId().toString());
+                        Toast.makeText(ActivityForgetPassword.this, response.body().getMessage(),Toast.LENGTH_SHORT).show();
 
                         finish();
 
@@ -214,8 +214,8 @@ public class ActivityForgetPassword extends AppCompatActivity implements View.On
         String edPassword = Hawk.get("ED_FORGET_PASSWORD");
     }
 
-    private void savingValuesInHawk() {
-        Hawk.put("ED_FORGET_PASSWORD", edForgetPassword.getText().toString());
+    private void savingValuesInHawk() {Hawk.put("ED_FORGET_PASSWORD", edForgetPassword.getText().toString());
+
     }
 
     @Override

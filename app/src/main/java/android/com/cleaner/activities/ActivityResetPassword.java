@@ -123,7 +123,6 @@ public class ActivityResetPassword extends AppCompatActivity implements Validato
 
                     if (response.body() != null && response.body().getIsSuccess()) {
 
-
                         TastyToast.makeText(ActivityResetPassword.this, response.body().getMessage(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
                         finish();
 

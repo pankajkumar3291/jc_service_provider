@@ -42,7 +42,7 @@
     <string name="types_of_services">Types of services</string>
     <string name="price">Price</string>
     <string name="your_string_here"><u>Terms and Conditions</u> and <u>Special</u></string>
-
+    <string name="password_sign_up">Password</string>
 
     <string name="sign_up">SIGN UP</string>
     <string name="first_name">First Name</string>

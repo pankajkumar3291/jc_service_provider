@@ -102,7 +102,7 @@ dependencies {
     implementation 'com.github.MdFarhanRaja:SearchableSpinner:1.9'
     implementation 'com.github.blennerSilva:AwesomeDialog:2.0.6'
     implementation 'com.borjabravo:readmoretextview:2.1.0'
-
+    implementation 'testfairy:testfairy-android-sdk:1.+@aar'
 
 }
 apply plugin: 'com.google.gms.google-services'  // MARK: FOR FIREBASE FCM

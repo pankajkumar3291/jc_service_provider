@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -292,7 +293,7 @@ public class ActivityOTP extends AppCompatActivity implements View.OnClickListen
 
                     if (response.body() != null && response.body().getIsSuccess()) {
 
-                        TastyToast.makeText(ActivityOTP.this, response.body().getMessage(), TastyToast.LENGTH_SHORT, TastyToast.SUCCESS).show();
+                        Toast.makeText(ActivityOTP.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                         finish();
 
@@ -302,13 +303,13 @@ public class ActivityOTP extends AppCompatActivity implements View.OnClickListen
 
                     } else {
 
-                        TastyToast.makeText(ActivityOTP.this, response.body().getMessage(), TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+                        Toast.makeText(ActivityOTP.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
 
                 } else {
 
-                    TastyToast.makeText(ActivityOTP.this, "Null Body", TastyToast.LENGTH_SHORT, TastyToast.ERROR).show();
+                    Toast.makeText(ActivityOTP.this, "Null Body",Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -325,7 +326,7 @@ public class ActivityOTP extends AppCompatActivity implements View.OnClickListen
     }
 
     private void callResetPasswordActivityFromHere() {
-
+Hawk.delete("savedUserId");
         Intent intent = new Intent(ActivityOTP.this, ActivityResetPassword.class);
         startActivity(intent);
 

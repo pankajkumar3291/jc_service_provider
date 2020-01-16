@@ -18,9 +18,12 @@ public class HttpModule {
                 .addInterceptor(logging)
                 .build();
     }
+
+
+    //http://103.66.73.21/cleaningService/JC2019clientRepo/public/api/customer/
     public static Retrofit getRetroFitClient(){
         return new Retrofit.Builder()
-                .baseUrl("http://smartit.ventures/CS/cleaning_service/public/api/")
+                .baseUrl("http://103.66.73.21/cleaningService/JC2019clientRepo/public/api/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .client(getOkkHttpClient())
